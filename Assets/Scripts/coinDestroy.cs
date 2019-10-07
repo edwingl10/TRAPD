@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class coinDestroy : MonoBehaviour
 {
+   
     private void Awake()
     {
         //StartCoroutine(StartDestroy());
         Destroy(gameObject, 6f);
+        
     }
 
     IEnumerator StartDestroy()

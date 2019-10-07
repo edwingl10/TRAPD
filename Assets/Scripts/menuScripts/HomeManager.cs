@@ -1,8 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using TMPro;
 
 public class HomeManager : MonoBehaviour
 {
@@ -11,20 +13,40 @@ public class HomeManager : MonoBehaviour
     public Animator mlight;
     public Animator rlight;
 
+    public TextMeshProUGUI coinsText;
+
     //settings
     public Animator settings;
     private bool showSettings;
     public GameObject soundIcon;
-    private bool soundEnabled;
+    private bool soundEnabled = true; 
     public GameObject musicIcon;
-    private bool musicEnabled;
+    private bool musicEnabled=true;
+
+    private int totalCoins;
 
     void Start()
     {
         showSettings = false;
-        soundEnabled = true;
-        musicEnabled = true;
+        //soundEnabled = true;
+        //musicEnabled = true;
         StartCoroutine(startSunlightAnimation());
+        LoadData();
+    }
+
+    public void LoadData()
+    {
+        try
+        {
+            gameData data = saveSystem.LoadGameData();
+            totalCoins = data.totalCoins;
+        }
+        catch (Exception e)
+        {
+           totalCoins =0;
+        }
+        coinsText.text = totalCoins.ToString();
+        
     }
 
     IEnumerator startSunlightAnimation()
@@ -75,4 +97,6 @@ public class HomeManager : MonoBehaviour
 
         }
     }
+
+    
 }

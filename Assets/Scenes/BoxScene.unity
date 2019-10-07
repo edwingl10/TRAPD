@@ -1545,7 +1545,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 327751943}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 519420030}
+        m_MethodName: GoMainMenu
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &327751943
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2358,6 +2369,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49c3bf5f2c1e74df19097ad5e5baf7a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scoreValue: 0
+  coinsValue: 0
   score: {fileID: 827925877}
   yellowCoin: {fileID: 2434492901566468254, guid: e5892578154b34d1086f3beddb1f5257,
     type: 3}
@@ -5628,7 +5641,6 @@ GameObject:
   - component: {fileID: 1311236816}
   - component: {fileID: 1311236820}
   - component: {fileID: 1311236819}
-  - component: {fileID: 1311236818}
   - component: {fileID: 1311236821}
   - component: {fileID: 1311236822}
   - component: {fileID: 1311236823}
@@ -5708,32 +5720,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &1311236818
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1311236815}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 6200000, guid: bc8c63a8f28914a2ba4b09b1486030a8, type: 2}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.6823708}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 3.91, y: 4.27}
-    newSize: {x: 3.91, y: 4.27}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 3.0785537, y: 2.5303595}
-  m_EdgeRadius: 0
 --- !u!50 &1311236819
 Rigidbody2D:
   serializedVersion: 4
@@ -5808,9 +5794,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.57735175}
+  m_Offset: {x: 0, y: -0.3}
   serializedVersion: 2
-  m_Radius: 1.5583266
+  m_Radius: 1.8488199
 --- !u!114 &1311236822
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7200,7 +7186,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1578034987}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 9.46, y: 2.83, z: 0}
+  m_LocalPosition: {x: 9.46, y: 2.78, z: 0}
   m_LocalScale: {x: 0.1705118, y: 0.18932803, z: 0}
   m_Children:
   - {fileID: 1832046798}
@@ -8233,7 +8219,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1792718522}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.55, y: 2.97, z: 0}
+  m_LocalPosition: {x: -9.55, y: 2.91, z: 0}
   m_LocalScale: {x: 0.1705118, y: 0.18932803, z: 0}
   m_Children:
   - {fileID: 1902077649}

@@ -9,8 +9,8 @@ using TMPro;
 public class levelManager : MonoBehaviour
 {
     //keeps track of total score and coins collected
-    private static int scoreValue;
-    private static int coinsValue;
+    public int scoreValue;
+    public int coinsValue;
 
     public Text score;
     public GameObject yellowCoin;
@@ -23,7 +23,7 @@ public class levelManager : MonoBehaviour
     private float max;
 
     public GameObject[] blocks;
-    
+
     private float coinSpawnCounter;
     public bool isGameOver;
 
@@ -90,6 +90,13 @@ public class levelManager : MonoBehaviour
         }
     }
 
+    void SaveGameData()
+    {
+        gameData data = saveSystem.LoadGameData();
+        coinsValue += data.totalCoins;
+        saveSystem.saveLevelInfo(this);
+    }
+
     //------------- coin logic -------------------
 
     public void AddCoinsScore(int points)
@@ -108,6 +115,7 @@ public class levelManager : MonoBehaviour
         {
             SpawnYellowCoin();
         }
+        
         if (Random.value > 0.75)
         {
             SpawnRedCoin();
@@ -131,24 +139,28 @@ public class levelManager : MonoBehaviour
     void SpawnYellowCoin()
     {
         int index = Random.Range(0, 7);
-        Instantiate(yellowCoin, new Vector3(blocks[index].transform.position.x, blocks[index].transform.position.y+1f,0), Quaternion.identity);
+        float x_axis = Random.Range(-1f,1f);
+        Instantiate(yellowCoin, new Vector3(blocks[index].transform.position.x + x_axis, blocks[index].transform.position.y+1f,0), Quaternion.identity);
     }
 
     void SpawnRedCoin()
     {
         int index = Random.Range(4, 10);
-        Instantiate(redCoin, new Vector3(blocks[index].transform.position.x, blocks[index].transform.position.y + 1f, 0), Quaternion.identity);
+        float x_axis = Random.Range(-1f, 1f);
+        Instantiate(redCoin, new Vector3(blocks[index].transform.position.x + x_axis, blocks[index].transform.position.y + 1f, 0), Quaternion.identity);
     }
 
     void SpawnBlueCoin()
     {
         int index = Random.Range(7,10);
-        Instantiate(blueCoin, new Vector3(blocks[index].transform.position.x, blocks[index].transform.position.y + 1f, 0), Quaternion.identity);
+        float x_axis = Random.Range(-1f, 1f);
+        Instantiate(blueCoin, new Vector3(blocks[index].transform.position.x + x_axis, blocks[index].transform.position.y + 1f, 0), Quaternion.identity);
     }
     void SpawnHealthCoin()
     {
         int index = Random.Range(0,10);
-        Instantiate(healthCoin, new Vector3(blocks[index].transform.position.x, blocks[index].transform.position.y + 1f, 0), Quaternion.identity);
+        float x_axis = Random.Range(-1f, 1f);
+        Instantiate(healthCoin, new Vector3(blocks[index].transform.position.x + x_axis, blocks[index].transform.position.y + 1f, 0), Quaternion.identity);
     }
 
     // ---------------------Menu UI handling --------------------------
@@ -176,6 +188,11 @@ public class levelManager : MonoBehaviour
         gameOverPanel.SetActive(true);
         scoreText.text = scoreValue.ToString();
         coinsText.text = coinsValue.ToString();
+        SaveGameData();
+    }
+    public void GoMainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
     }
 
     // ------------- Obstacle Logic ------------- 

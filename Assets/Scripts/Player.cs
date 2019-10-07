@@ -72,7 +72,6 @@ public class Player : MonoBehaviour
 
     void Die()
     {
-
         Time.timeScale = 0.5f;
         levelMan.isGameOver = true;
         Destroy(gameObject);
@@ -82,6 +81,7 @@ public class Player : MonoBehaviour
     //detects collision with coins
     void OnTriggerEnter2D(Collider2D hitInfo)
     {
+
         if (hitInfo.gameObject.CompareTag("yellowCoin"))
         {
             levelMan.AddCoinsScore(10);
