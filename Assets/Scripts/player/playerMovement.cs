@@ -5,7 +5,7 @@ using UnityEngine;
 public class playerMovement : MonoBehaviour
 {
     public CharacterController2D controller;
-    public Animator animator;
+    private Animator animator;
 
     float horizontalMove = 0f;
     public float runspeed = 40f;
@@ -13,6 +13,11 @@ public class playerMovement : MonoBehaviour
 	bool jump = false;
     bool moveLeft = false;
     bool moveRight;
+
+    private void Start()
+    {
+        animator = GetComponent<Animator>();
+    }
 
     void Update()
     {

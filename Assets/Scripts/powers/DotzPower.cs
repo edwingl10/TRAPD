@@ -22,6 +22,11 @@ public class DotzPower : MonoBehaviour
 
     private void Update()
     {
+        if (player.powered)
+        {
+            ActivatePowerup();
+        }
+
         if (player.canForceField)
         {
             if(Time.time >= disappearTimer)
@@ -32,6 +37,7 @@ public class DotzPower : MonoBehaviour
                 {
                     player.currentxp = 0;
                     player.canForceField = false;
+                    player.powered = false;
                     forceField.SetActive(false);
                 }
                 player.UpdatePowerupBar(player.currentxp / player.Powerxp);

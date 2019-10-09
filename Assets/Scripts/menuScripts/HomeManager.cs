@@ -23,7 +23,13 @@ public class HomeManager : MonoBehaviour
     public GameObject musicIcon;
     private bool musicEnabled=true;
 
+    public GameObject characterSelectPanel;
+    public GameObject mainMenuPanel;
+
     private int totalCoins;
+
+    public Animator player;
+    private int index;
 
     void Start()
     {
@@ -32,6 +38,8 @@ public class HomeManager : MonoBehaviour
         //musicEnabled = true;
         StartCoroutine(startSunlightAnimation());
         LoadData();
+        LoadPLayerData();
+        player.runtimeAnimatorController = GameAssets.i.controllers[index];
     }
 
     public void LoadData()
@@ -47,6 +55,19 @@ public class HomeManager : MonoBehaviour
         }
         coinsText.text = totalCoins.ToString();
         
+    }
+
+    private void LoadPLayerData()
+    {
+        try
+        {
+            playerData data = saveSystem.LoadCharacterInfo();
+            index = data.playerID;
+        }
+        catch (Exception e)
+        {
+            index = 0;
+        }
     }
 
     IEnumerator startSunlightAnimation()
@@ -98,5 +119,15 @@ public class HomeManager : MonoBehaviour
         }
     }
 
+    public void ShowCharacterSelectionScreen()
+    {
+        mainMenuPanel.SetActive(false);
+        characterSelectPanel.SetActive(true);
+    }
+    public void HideCharacterSelectionScreen()
+    {
+        characterSelectPanel.SetActive(false);
+        mainMenuPanel.SetActive(true);
+    }
     
 }

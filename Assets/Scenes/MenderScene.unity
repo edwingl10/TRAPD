@@ -3192,18 +3192,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 717539367}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 519420030}
-        m_MethodName: GoMainMenu
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &717539367
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5654,10 +5643,10 @@ GameObject:
   - component: {fileID: 1311236819}
   - component: {fileID: 1311236821}
   - component: {fileID: 1311236822}
-  - component: {fileID: 1311236823}
   - component: {fileID: 1311236824}
   - component: {fileID: 1311236825}
   - component: {fileID: 1311236818}
+  - component: {fileID: 1311236823}
   m_Layer: 9
   m_Name: Player
   m_TagString: Player
@@ -5703,7 +5692,8 @@ SpriteRenderer:
   m_SortingLayerID: -1450340281
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: -8752062293917405580, guid: 06b95b1077a224ffc8bd7f9aa26b7ae8,
+    type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -5711,7 +5701,7 @@ SpriteRenderer:
   m_Size: {x: 3.91, y: 4.27}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &1311236817
@@ -5731,18 +5721,25 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1311236818
-MonoBehaviour:
+--- !u!95 &1311236818
+Animator:
+  serializedVersion: 3
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1311236815}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed5c622673e104afca775fc39e3e7392, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 3f8b9369563d244aea32dc4f8d5372f4, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!50 &1311236819
 Rigidbody2D:
   serializedVersion: 4
@@ -5834,25 +5831,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 1311236820}
   runspeed: 27
---- !u!95 &1311236823
-Animator:
-  serializedVersion: 3
+--- !u!114 &1311236823
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1311236815}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed5c622673e104afca775fc39e3e7392, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
 --- !u!114 &1311236824
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5887,6 +5878,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fb639113f0c64c46a5018c5b5d694b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
   forceField: {fileID: 3190013238712837092}
 --- !u!1 &1314204644
 GameObject:

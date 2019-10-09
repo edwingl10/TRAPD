@@ -14,17 +14,18 @@ public class PointsPopup : MonoBehaviour
         textMesh = transform.GetComponent<TextMeshPro>();
     }
 
-    public static PointsPopup Create(Vector3 position, string text)
+    public static PointsPopup Create(Vector3 position, string text, Color color)
     {
         Transform damagePopupTransform = Instantiate(GameAssets.i.pfDamagePopup, position, Quaternion.identity);
         PointsPopup damagePopup = damagePopupTransform.GetComponent<PointsPopup>();
-        damagePopup.Setup(text);
+        damagePopup.Setup(text, color);
         return damagePopup;
     }
 
-    public void Setup(string text)
+    public void Setup(string text, Color color)
     {
         textMesh.SetText(text);
+        textMesh.color = color;
         textColor = textMesh.color;
         disappearTimer = 0.5f;
     }

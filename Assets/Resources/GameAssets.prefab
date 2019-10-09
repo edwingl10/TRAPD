@@ -45,3 +45,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pfDamagePopup: {fileID: 6938376917760178534, guid: 6f477c9318c814898b13a22a81e37c59,
     type: 3}
+  controllers:
+  - {fileID: 9100000, guid: 213f1ce2b0f3146d0b33f55ac44da01b, type: 2}
+  - {fileID: 9100000, guid: 3f8b9369563d244aea32dc4f8d5372f4, type: 2}
+  - {fileID: 9100000, guid: 81df78e3711f6400986563018c23ba9c, type: 2}
+  characterSprites:
+  - {fileID: -1880908402985121145, guid: 31831f6efa5584729856e2e936d5ff43, type: 3}
+  - {fileID: -8752062293917405580, guid: 06b95b1077a224ffc8bd7f9aa26b7ae8, type: 3}
+  - {fileID: 5786092330022430118, guid: 5df317ccc58e34378a99a1864fa793af, type: 3}

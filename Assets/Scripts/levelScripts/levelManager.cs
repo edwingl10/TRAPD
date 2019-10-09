@@ -92,8 +92,15 @@ public class levelManager : MonoBehaviour
 
     void SaveGameData()
     {
-        gameData data = saveSystem.LoadGameData();
-        coinsValue += data.totalCoins;
+        try
+        {
+            gameData data = saveSystem.LoadGameData();
+            coinsValue += data.totalCoins;
+        } catch(System.Exception e)
+        {
+            Debug.Log(e);
+        }
+        
         saveSystem.saveLevelInfo(this);
     }
 
@@ -193,6 +200,7 @@ public class levelManager : MonoBehaviour
     public void GoMainMenu()
     {
         SceneManager.LoadScene("MainMenu");
+        Time.timeScale = 1f;
     }
 
     // ------------- Obstacle Logic ------------- 

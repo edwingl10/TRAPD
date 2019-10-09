@@ -1,12 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
  
 
 public class Player : MonoBehaviour
 {
     //used for health bar
-    private float StartingHealth;
+    public float StartingHealth;
     public float health;
     public GameObject HealthBar;
     private Transform bar;
@@ -20,11 +21,52 @@ public class Player : MonoBehaviour
     public levelManager levelMan;
 
     public GameObject powerButton;
+    public bool powered;
     public bool canForceField;
 
-	void Start()
+    private int id;
+
+    private void Awake()
+    {
+        //GetComponent<DotzPower>().enabled = true;
+        LoadPLayerData();
+        GetComponent<SpriteRenderer>().sprite = GameAssets.i.GetCharacterSprite(id);
+        GetComponent<Animator>().runtimeAnimatorController = GameAssets.i.controllers[id];
+        LoadPower();
+    }
+
+    private void LoadPLayerData()
+    {
+        try
+        {
+            playerData data = saveSystem.LoadCharacterInfo();
+            id = data.playerID;
+        }
+        catch (Exception e)
+        {
+            id = 0;
+        }
+    }
+
+    private void LoadPower()
+    {
+        switch (id)
+        {
+            case 0:
+                GetComponent<DotzPower>().enabled = true;
+                break;
+            case 1:
+                GetComponent<MenderPower>().enabled = true;
+                break;
+            default:
+                break;
+        }
+    }
+
+    void Start()
     {
         canForceField = false;
+        powered = false;
         StartingHealth = health;
 		currentxp = 0;
         bar = HealthBar.transform.Find("Bar");
@@ -55,6 +97,7 @@ public class Player : MonoBehaviour
 	{
 		if (percent >= 1.0)
 		{
+            currentxp = Powerxp;
 			bar2.localScale = new Vector3(1f, 1f);
 			powerButton.SetActive(true);
 		}
@@ -88,7 +131,7 @@ public class Player : MonoBehaviour
 			currentxp += 8;
 			UpdatePowerupBar(currentxp / Powerxp);
 
-            PointsPopup.Create(gameObject.transform.position, "+10");
+            PointsPopup.Create(gameObject.transform.position, "+10¢", Color.yellow);
             Destroy(hitInfo.gameObject);
         }
         else if (hitInfo.gameObject.CompareTag("redCoin"))
@@ -97,7 +140,7 @@ public class Player : MonoBehaviour
 			currentxp += 15;
 			UpdatePowerupBar(currentxp/Powerxp);
 
-            PointsPopup.Create(gameObject.transform.position, "+30");
+            PointsPopup.Create(gameObject.transform.position, "+30¢", Color.yellow);
             Destroy(hitInfo.gameObject);
         }
         
@@ -111,7 +154,7 @@ public class Player : MonoBehaviour
             }
 			UpdatePowerupBar(currentxp/Powerxp);
 
-            PointsPopup.Create(gameObject.transform.position, "+50");
+            PointsPopup.Create(gameObject.transform.position, "+50¢", Color.yellow);
             Destroy(hitInfo.gameObject);
         }
 
@@ -123,7 +166,7 @@ public class Player : MonoBehaviour
                 health = StartingHealth;
             }
             SetHealthBarSize(health / StartingHealth);
-            PointsPopup.Create(gameObject.transform.position, "+25");
+            PointsPopup.Create(gameObject.transform.position, "+25hp", Color.green);
             Destroy(hitInfo.gameObject);
         }
        
@@ -134,4 +177,8 @@ public class Player : MonoBehaviour
         GetComponent<Animator>().SetBool("damage",false);
     }
 
+    public void ActivatePower()
+    {
+        powered = true;
+    }
 }
