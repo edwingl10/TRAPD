@@ -64,6 +64,9 @@ public class Player : MonoBehaviour
             case 3:
                 GetComponent<VerglasPower>().enabled = true;
                 break;
+            case 4:
+                GetComponent<DartPower>().enabled = true;
+                break;
         }
     }
 

@@ -8,6 +8,9 @@ public class CocoPower : MonoBehaviour
     private bool active;
     private float disappearTimer;
 
+    public GameObject echoEffect;
+
+
     void Start()
     {
         player = GetComponent<Player>();
@@ -39,10 +42,26 @@ public class CocoPower : MonoBehaviour
         }
     }
 
+    private IEnumerator ShrinkEffect()
+    {
+        GameObject e1 = Instantiate(echoEffect, transform.position, Quaternion.identity) as GameObject;
+        yield return new WaitForSeconds(0.1f);
+        GameObject e2 = Instantiate(echoEffect, transform.position, Quaternion.identity) as GameObject;
+        yield return new WaitForSeconds(0.1f);
+        GameObject e3 = Instantiate(echoEffect, transform.position, Quaternion.identity) as GameObject;
+
+        yield return new WaitForSeconds(1f);
+        Destroy(e1);
+        Destroy(e2);
+        Destroy(e3);
+    }
+
     private void ShrinkPower()
     {
         if (!active)
         {
+            StartCoroutine(ShrinkEffect());
+
             transform.localScale += new Vector3(-0.1f, -0.1f, 0);
             active = true;
         }

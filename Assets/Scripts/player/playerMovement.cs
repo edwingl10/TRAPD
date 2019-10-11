@@ -8,7 +8,7 @@ public class playerMovement : MonoBehaviour
     private Animator animator;
 
     float horizontalMove = 0f;
-    public float runspeed = 40f;
+    public float runspeed = 27f;
 
 	bool jump = false;
     bool moveLeft = false;
