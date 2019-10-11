@@ -4,16 +4,21 @@ using UnityEngine;
 
 public class bullet : MonoBehaviour
 {
-    public float speed = 20f;
+    public float speed; //set in level manager
     public Rigidbody2D rb;
     //references bullet particle 
     private UnityEngine.Object bulletExplosionRef;
     public int damage;
     
     void Start()
+    { 
+        //rb.velocity = transform.right * speed;
+        bulletExplosionRef = Resources.Load("bulletExplosion");
+    }
+
+    void FixedUpdate()
     {
         rb.velocity = transform.right * speed;
-        bulletExplosionRef = Resources.Load("bulletExplosion");
     }
 
     void OnTriggerEnter2D(Collider2D hitInfo){

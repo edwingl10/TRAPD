@@ -6,7 +6,6 @@ using UnityEngine;
 public class gameData
 {
     public int totalCoins;
-    public int playerIndex;
 
     public gameData(levelManager levelman)
     {

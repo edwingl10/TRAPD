@@ -43,13 +43,21 @@ public class levelManager : MonoBehaviour
 
     private int levelNum;
 
+    public bullet bulletRef;
+    public bullet bullet2Ref;
+    public laserBeam laserBeamRef;
+
     void Start()
     {
         isGameOver = false;
         disappearCounter = 0;
         spikeDisappearCounter = 0;
         bombSpawnCounter = 0;
-        levelNum = 1; //used to choose the sub level, chooses each and then randomly after playing all 
+        levelNum = 1; //used to choose the sub level, chooses each and then randomly after playing all
+
+        bulletRef.speed = 15f;
+        bullet2Ref.speed = 15f;
+        laserBeamRef.speed = 20f;
 
         coinsValue = 0;
         scoreValue = 0;
@@ -147,27 +155,27 @@ public class levelManager : MonoBehaviour
     {
         int index = Random.Range(0, 7);
         float x_axis = Random.Range(-1f,1f);
-        Instantiate(yellowCoin, new Vector3(blocks[index].transform.position.x + x_axis, blocks[index].transform.position.y+1f,0), Quaternion.identity);
+        Instantiate(yellowCoin, new Vector3(blocks[index].transform.position.x + x_axis, blocks[index].transform.position.y+1.25f,0), Quaternion.identity);
     }
 
     void SpawnRedCoin()
     {
         int index = Random.Range(4, 10);
         float x_axis = Random.Range(-1f, 1f);
-        Instantiate(redCoin, new Vector3(blocks[index].transform.position.x + x_axis, blocks[index].transform.position.y + 1f, 0), Quaternion.identity);
+        Instantiate(redCoin, new Vector3(blocks[index].transform.position.x + x_axis, blocks[index].transform.position.y + 1.25f, 0), Quaternion.identity);
     }
 
     void SpawnBlueCoin()
     {
         int index = Random.Range(7,10);
         float x_axis = Random.Range(-1f, 1f);
-        Instantiate(blueCoin, new Vector3(blocks[index].transform.position.x + x_axis, blocks[index].transform.position.y + 1f, 0), Quaternion.identity);
+        Instantiate(blueCoin, new Vector3(blocks[index].transform.position.x + x_axis, blocks[index].transform.position.y + 1.25f, 0), Quaternion.identity);
     }
     void SpawnHealthCoin()
     {
         int index = Random.Range(0,10);
         float x_axis = Random.Range(-1f, 1f);
-        Instantiate(healthCoin, new Vector3(blocks[index].transform.position.x + x_axis, blocks[index].transform.position.y + 1f, 0), Quaternion.identity);
+        Instantiate(healthCoin, new Vector3(blocks[index].transform.position.x + x_axis, blocks[index].transform.position.y + 1.25f, 0), Quaternion.identity);
     }
 
     // ---------------------Menu UI handling --------------------------

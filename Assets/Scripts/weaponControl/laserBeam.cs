@@ -4,16 +4,22 @@ using UnityEngine;
 
 public class laserBeam : MonoBehaviour
 {
-    public float speed = 20f;
+    public float speed; //set in level manager
     public Rigidbody2D rb;
     //references laser impact particle 
     private UnityEngine.Object laserExplosionRef;
     public int damage;
 
+
     void Start()
     {
-        rb.velocity = transform.right * speed;
+        //rb.velocity = transform.right * speed;
         laserExplosionRef = Resources.Load("laserImpact");
+    }
+
+    void FixedUpdate()
+    {
+        rb.velocity = transform.right * speed;
     }
 
     void OnTriggerEnter2D(Collider2D hitInfo)
