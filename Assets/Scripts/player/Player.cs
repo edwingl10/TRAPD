@@ -67,6 +67,10 @@ public class Player : MonoBehaviour
             case 4:
                 GetComponent<DartPower>().enabled = true;
                 break;
+            case 5:
+                GetComponent<QuashPower>().enabled = true;
+                break;
+            
         }
     }
 

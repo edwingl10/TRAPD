@@ -12,6 +12,8 @@ TagManager:
   - Spikes
   - boundary
   - block
+  - playerBullet
+  - bullet
   layers:
   - Default
   - TransparentFX
