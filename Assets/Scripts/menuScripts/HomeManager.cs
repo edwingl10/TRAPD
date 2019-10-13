@@ -31,6 +31,9 @@ public class HomeManager : MonoBehaviour
     public Animator player;
     private int index;
 
+    public GameObject playerObject;
+    public Animator transition;
+
     void Start()
     {
         showSettings = false;
@@ -82,6 +85,20 @@ public class HomeManager : MonoBehaviour
 
     public void StartLevel()
     {
+        mainMenuPanel.SetActive(false);
+        player.GetComponent<playerMovement>().MoveRight();
+        StartCoroutine(TransitionToGameScene());
+        //SceneManager.LoadScene("BoxScene");
+        //transition.SetBool("outro", true);
+    }
+
+    IEnumerator TransitionToGameScene()
+    {
+        yield return new WaitForSeconds(4.2f);
+        player.GetComponent<playerMovement>().Jump();
+        yield return new WaitForSeconds(2f);
+        transition.Play("sceneOutro");
+        yield return new WaitForSeconds(1.2f);
         SceneManager.LoadScene("BoxScene");
     }
 

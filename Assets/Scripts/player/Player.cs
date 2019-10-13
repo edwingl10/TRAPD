@@ -26,6 +26,7 @@ public class Player : MonoBehaviour
 
     private int id;
 
+
     private void Awake()
     {
         //GetComponent<DotzPower>().enabled = true;

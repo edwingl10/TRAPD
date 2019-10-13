@@ -35,11 +35,16 @@ public class levelManager : MonoBehaviour
 
     public GroundisLava gil;
     private int disappearCounter;
+
     public GameObject spikes;
     private int spikeDisappearCounter;
+
     public GameObject bomb;
     public GameObject arrow;
     private int bombSpawnCounter;
+
+    private int poisonCloudSpawnCounter;
+    public GameObject poisonCloud;
 
     private int levelNum;
 
@@ -53,6 +58,7 @@ public class levelManager : MonoBehaviour
         disappearCounter = 0;
         spikeDisappearCounter = 0;
         bombSpawnCounter = 0;
+        poisonCloudSpawnCounter = 0;
         levelNum = 1; //used to choose the sub level, chooses each and then randomly after playing all
 
         bulletRef.speed = 15f;
@@ -74,16 +80,18 @@ public class levelManager : MonoBehaviour
         if (scoreValue > 1 && scoreValue % 200 == 0) //good at 200
         {
             //once every level has gone, choose on at random
+
             
-            if (levelNum >=5)
+            if (levelNum >5)
             {
-                ObstacleManager(Random.Range(1, 5));
+                ObstacleManager(Random.Range(1, 6));
             }
             else
             {
                 ObstacleManager(levelNum);
                 levelNum++; 
-            }
+            } 
+            
         }
 
         if (!isGameOver)
@@ -228,6 +236,9 @@ public class levelManager : MonoBehaviour
             case 4:
                 InvokeRepeating("SpawnDangerArrow", 1f, 6f);
                 break;
+            case 5:
+                InvokeRepeating("SpawnPoisonCloud", 1f, 10f);
+                break;
         }
     }
 
@@ -294,5 +305,20 @@ public class levelManager : MonoBehaviour
     {
         yield return new WaitForSeconds(3);
         Instantiate(bomb, new Vector2(xPos, 4.5f), Quaternion.identity);
+    }
+
+    public void SpawnPoisonCloud()
+    {
+        if(poisonCloudSpawnCounter == 2)
+        {
+            CancelInvoke("SpawnPoisonCloud");
+            poisonCloudSpawnCounter = 0;
+        }
+        poisonCloudSpawnCounter++;
+        float x_pos = Random.Range(-9f, 5.5f);
+        float y_pos = Random.Range(-1.91f, 3.65f);
+
+        Instantiate(poisonCloud, new Vector2(x_pos, y_pos), Quaternion.identity);
+
     }
 }
