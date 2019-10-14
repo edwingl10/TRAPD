@@ -7,10 +7,12 @@ using UnityEngine;
 public class playerData
 {
     public int playerID;
+    public Hashtable[] playerInfo;
 
     public playerData(characterSelect charsel)
     {
         playerID = charsel.index;
+        playerInfo = charsel.playerInfo;
     }
 
 

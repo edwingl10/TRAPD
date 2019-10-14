@@ -59,3 +59,10 @@ MonoBehaviour:
   - {fileID: -1069585396034097669, guid: d36c037d8473542248ff912eadc4995a, type: 3}
   - {fileID: 3589679534776854274, guid: 05785eb81eb424364affd61f558c9f74, type: 3}
   - {fileID: -4654675849338169047, guid: 74d349111f90b4f6495dc8b575cc8630, type: 3}
+  characterDescription:
+  - Power Shield
+  - Health Regen.
+  - Shrink Height
+  - Slow Motion
+  - Swift Speed
+  - Gun Defense

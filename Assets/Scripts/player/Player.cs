@@ -36,6 +36,12 @@ public class Player : MonoBehaviour
         LoadPower();
     }
 
+    IEnumerator PlayerIntro()
+    {
+        yield return new WaitForSeconds(0.3f);
+        GetComponent<Rigidbody2D>().gravityScale = 3;
+    }
+
     private void LoadPLayerData()
     {
         try
@@ -77,6 +83,7 @@ public class Player : MonoBehaviour
 
     void Start()
     {
+        StartCoroutine(PlayerIntro());
         canForceField = false;
         powered = false;
         StartingHealth = health;

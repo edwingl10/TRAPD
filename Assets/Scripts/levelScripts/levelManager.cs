@@ -52,8 +52,12 @@ public class levelManager : MonoBehaviour
     public bullet bullet2Ref;
     public laserBeam laserBeamRef;
 
+    public Animator sceneTransition;
+
     void Start()
     {
+        sceneTransition.Play("SceneIntro");
+
         isGameOver = false;
         disappearCounter = 0;
         spikeDisappearCounter = 0;
