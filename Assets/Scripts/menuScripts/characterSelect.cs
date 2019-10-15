@@ -22,6 +22,12 @@ public class characterSelect : MonoBehaviour
     public Hashtable[] playerInfo;
 
     public TextMeshProUGUI description;
+    public TextMeshProUGUI playerName;
+    public TextMeshProUGUI nextPlayerName;
+    public TextMeshProUGUI nextPlayerDesc;
+    public TextMeshProUGUI prevPlayerName;
+    public TextMeshProUGUI prevPlayerDesc;
+
     public GameObject selectBttn;
     public GameObject storeBttn;
 
@@ -39,6 +45,7 @@ public class characterSelect : MonoBehaviour
             playerData data = saveSystem.LoadCharacterInfo();
             index = data.playerID;
             playerInfo = data.playerInfo;
+            playerInfo[2]["unlocked"] = true;
         }
         catch (Exception e)
         {
@@ -66,12 +73,20 @@ public class characterSelect : MonoBehaviour
 
         SetPanelColors(middlePanel, index);
         middleImg.GetComponent<Image>().sprite = GameAssets.i.GetCharacterSprite(index);
+        playerName.text = (string)playerInfo[index]["name"];
         description.text = GameAssets.i.characterDescription[index];
 
-        SetPanelColors(leftPanel, HandleIndex(index-1));
-        leftImg.GetComponent<Image>().sprite = GameAssets.i.GetCharacterSprite(index-1);
-        SetPanelColors(rightPanel, HandleIndex(index + 1));
-        rightImg.GetComponent<Image>().sprite = GameAssets.i.GetCharacterSprite(index + 1);
+        int leftIndex = HandleIndex(index - 1);
+        SetPanelColors(leftPanel, leftIndex);
+        leftImg.GetComponent<Image>().sprite = GameAssets.i.GetCharacterSprite(leftIndex);
+        prevPlayerName.text = (string)playerInfo[leftIndex]["name"];
+        prevPlayerDesc.text = GameAssets.i.characterDescription[leftIndex];
+
+        int rightIndex = HandleIndex(index + 1);
+        SetPanelColors(rightPanel, rightIndex);
+        rightImg.GetComponent<Image>().sprite = GameAssets.i.GetCharacterSprite(rightIndex);
+        nextPlayerName.text = (string)playerInfo[rightIndex]["name"];
+        nextPlayerDesc.text = GameAssets.i.characterDescription[rightIndex];
     }
 
     private void SetPanelColors(GameObject panel, int slot)

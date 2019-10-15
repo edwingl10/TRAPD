@@ -7,6 +7,7 @@ public class CocoPower : MonoBehaviour
     private Player player;
     private bool active;
     private float disappearTimer;
+    private float CountdownInterval;
 
     public GameObject echoEffect;
 
@@ -15,7 +16,8 @@ public class CocoPower : MonoBehaviour
     {
         player = GetComponent<Player>();
         active = false;
-        disappearTimer = Random.Range(0.5f, 1f);
+        CountdownInterval = 0.5f;
+        disappearTimer = CountdownInterval; //Random.Range(0.5f, 1f);
     }
 
     void Update()
@@ -25,7 +27,7 @@ public class CocoPower : MonoBehaviour
             ShrinkPower();
             if (Time.time >= disappearTimer)
             {
-                disappearTimer = Time.time + Random.Range(0.5f, 1f);
+                disappearTimer = Time.time + CountdownInterval; //Random.Range(0.5f, 1f);
                 player.currentxp -= 10;
                 if (player.currentxp < 0f)
                 {

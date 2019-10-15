@@ -6,12 +6,14 @@ public class DotzPower : MonoBehaviour
 {
     private Player player;
     private float disappearTimer;
+    private float CountdownInterval;
     public GameObject forceField;
 
     private void Start()
     {
         player = GetComponent<Player>();
-        disappearTimer = Random.Range(0.5f,1f);
+        CountdownInterval = 0.5f;
+        disappearTimer = CountdownInterval; //Random.Range(0.8f,1f);
     }
 
     public void ActivatePowerup()
@@ -31,7 +33,7 @@ public class DotzPower : MonoBehaviour
         {
             if(Time.time >= disappearTimer)
             {
-                disappearTimer = Time.time + Random.Range(0.5f,1f);
+                disappearTimer = Time.time + CountdownInterval; //Random.Range(0.5f,1f);
                 player.currentxp -= 10;
                 if (player.currentxp < 0f)
                 {
