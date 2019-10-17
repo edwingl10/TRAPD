@@ -8,12 +8,16 @@ public class DartPower : MonoBehaviour
     private Player player;
     private bool fast;
     private float disappearTimer;
+    private float countDownInterval;
     public TrailRenderer speedTrail;
+    private float fspeed;
 
     void Start()
     {
         fast = false;
-        disappearTimer = Random.Range(0.5f, 1f);
+        countDownInterval = 0.5f;
+        fspeed = 33f;
+        disappearTimer = countDownInterval; //Random.Range(0.5f, 1f);
         player = GetComponent<Player>();
     }
 
@@ -28,7 +32,7 @@ public class DartPower : MonoBehaviour
 
             if (Time.time >= disappearTimer)
             {
-                disappearTimer = Time.time + Random.Range(0.5f, 1f);
+                disappearTimer = Time.time + countDownInterval; //Random.Range(0.5f, 1f);
                 player.currentxp -= 10;
                 if (player.currentxp < 0f)
                 {
@@ -45,7 +49,7 @@ public class DartPower : MonoBehaviour
 
     void SpeedPower()
     {
-        playermov.runspeed = 40f;
+        playermov.runspeed = fspeed;
         speedTrail.enabled = true;
     }
 

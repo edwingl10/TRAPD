@@ -12,5 +12,8 @@ public class gameData
         totalCoins = levelman.coinsValue;
     }
 
-
+    public gameData(HomeManager homeMan)
+    {
+        totalCoins = homeMan.totalCoins;
+    }
 }

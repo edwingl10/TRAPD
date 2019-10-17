@@ -9,6 +9,8 @@ public class QuashPower : MonoBehaviour
     public Transform firePoint;
     public GameObject bulletPrefab;
     private float disappearTimer;
+    private float countDownInterval;
+    private float shootInterval;
 
     private bool power;
 
@@ -16,7 +18,9 @@ public class QuashPower : MonoBehaviour
     private void Start()
     {
         player = GetComponent<Player>();
-        disappearTimer = Random.Range(0.5f, 1f);
+        shootInterval = 0.6f;
+        countDownInterval = 0.5f;
+        disappearTimer = countDownInterval; //Random.Range(0.5f, 1f);
     }
 
     private void Update()
@@ -27,13 +31,13 @@ public class QuashPower : MonoBehaviour
             {
                 power = true;
                 gun.SetActive(true);
-                InvokeRepeating("StartShootPower", 0.5f, 0.5f);
+                InvokeRepeating("StartShootPower", shootInterval, shootInterval);
             }
             
 
             if (Time.time >= disappearTimer)
             {
-                disappearTimer = Time.time + Random.Range(0.5f, 1f);
+                disappearTimer = Time.time + countDownInterval; //Random.Range(0.5f, 1f);
                 player.currentxp -= 10;
                 if (player.currentxp < 0f)
                 {

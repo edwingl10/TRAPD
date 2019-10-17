@@ -9,11 +9,16 @@ public class playerData
     public int playerID;
     public Hashtable[] playerInfo;
 
-    public playerData(characterSelect charsel)
+    public playerData(characterSelect charsel, Hashtable[] pinfo)
     {
         playerID = charsel.index;
-        playerInfo = charsel.playerInfo;
+        playerInfo = pinfo;
     }
 
+    public playerData(HomeManager homeMan)
+    {
+        playerID = homeMan.index;
+        playerInfo = homeMan.playerInfo;
+    }
 
 }

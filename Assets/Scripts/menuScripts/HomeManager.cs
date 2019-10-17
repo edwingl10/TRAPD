@@ -25,14 +25,18 @@ public class HomeManager : MonoBehaviour
 
     public GameObject characterSelectPanel;
     public GameObject mainMenuPanel;
+    public GameObject storePanel;
 
-    private int totalCoins;
+    public int totalCoins;
 
     public Animator player;
-    private int index;
+    public int index; 
 
     public GameObject playerObject;
     public Animator transition;
+
+    public gameData gdata;
+    public Hashtable[] playerInfo;
 
     void Start()
     {
@@ -49,8 +53,8 @@ public class HomeManager : MonoBehaviour
     {
         try
         {
-            gameData data = saveSystem.LoadGameData();
-            totalCoins = data.totalCoins;
+            gdata = saveSystem.LoadGameData();
+            totalCoins = gdata.totalCoins;
         }
         catch (Exception e)
         {
@@ -66,11 +70,23 @@ public class HomeManager : MonoBehaviour
         {
             playerData data = saveSystem.LoadCharacterInfo();
             index = data.playerID;
+            playerInfo = data.playerInfo;
         }
         catch (Exception e)
         {
             index = 0;
+            playerInfo = GameAssets.i.playerInfo;
         }
+    }
+    
+    public void SavePlayerData()
+    {
+        saveSystem.saveCharacterInfo(this);
+    }
+    public void SaveCoinData()
+    {
+        saveSystem.saveCoinInfo(this);
+        coinsText.text = totalCoins.ToString();
     }
 
     IEnumerator startSunlightAnimation()
@@ -138,13 +154,16 @@ public class HomeManager : MonoBehaviour
 
     public void ShowCharacterSelectionScreen()
     {
-        mainMenuPanel.SetActive(false);
         characterSelectPanel.SetActive(true);
     }
     public void HideCharacterSelectionScreen()
     {
         characterSelectPanel.SetActive(false);
-        mainMenuPanel.SetActive(true);
     }
-    
+
+    public void ShowStoreScreen()
+    {
+        storePanel.SetActive(true);
+
+    }
 }

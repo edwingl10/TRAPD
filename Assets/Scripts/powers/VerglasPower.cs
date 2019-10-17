@@ -10,7 +10,9 @@ public class VerglasPower : MonoBehaviour
     
     private Player player;
     private float disappearTimer;
+    private float countDownInterval;
     private bool freeze;
+    private float fspeed;
 
     public ParticleSystem freezeEffect;
     public Animator freezeAnim;
@@ -18,7 +20,9 @@ public class VerglasPower : MonoBehaviour
 
     private void Start()
     {
-        disappearTimer = Random.Range(0.5f,1f);
+        countDownInterval = 0.5f;
+        fspeed = 10f;
+        disappearTimer = countDownInterval; //Random.Range(0.5f,1f);
         player = GetComponent<Player>();
         freeze = false;
     }
@@ -28,9 +32,9 @@ public class VerglasPower : MonoBehaviour
         freeze = true;
         freezeAnim.SetBool("freeze", freeze);
         freezeEffect.Play();
-        bulletRef.speed = 5f;
-        bullet2Ref.speed = 5f;
-        laserBeamRef.speed = 5f;
+        bulletRef.speed = fspeed;
+        bullet2Ref.speed = fspeed;
+        laserBeamRef.speed = fspeed;
         
     }
     private void StopPower()
@@ -54,7 +58,7 @@ public class VerglasPower : MonoBehaviour
 
             if (Time.time >= disappearTimer)
             {
-                disappearTimer = Time.time + Random.Range(0.5f, 1f);
+                disappearTimer = Time.time + countDownInterval;
                 player.currentxp -= 10;
                 if (player.currentxp < 0f)
                 {

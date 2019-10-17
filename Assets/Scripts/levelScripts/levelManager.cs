@@ -120,7 +120,11 @@ public class levelManager : MonoBehaviour
         {
             Debug.Log(e);
         }
-        
+        //max for coins
+        if(coinsValue > 1000000)
+        {
+            coinsValue = 1000000;
+        }
         saveSystem.saveLevelInfo(this);
     }
 

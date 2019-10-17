@@ -19,7 +19,6 @@ public class characterSelect : MonoBehaviour
 
     public int index;
     private int originalIndex;
-    public Hashtable[] playerInfo;
 
     public TextMeshProUGUI description;
     public TextMeshProUGUI playerName;
@@ -30,6 +29,8 @@ public class characterSelect : MonoBehaviour
 
     public GameObject selectBttn;
     public GameObject storeBttn;
+
+    public GameObject storePanel;
 
     private void Awake()
     {
@@ -44,13 +45,10 @@ public class characterSelect : MonoBehaviour
         {
             playerData data = saveSystem.LoadCharacterInfo();
             index = data.playerID;
-            playerInfo = data.playerInfo;
-            playerInfo[2]["unlocked"] = true;
         }
         catch (Exception e)
         {
             index = 0;
-            playerInfo = GameAssets.i.playerInfo;
         }
         originalIndex = index;
     }
@@ -58,34 +56,34 @@ public class characterSelect : MonoBehaviour
     //called when chooes button is clicked
     public void HandleCharacterSelection()
     {
-        saveSystem.saveCharacterInfo(this);
+        saveSystem.saveCharacterInfo(this, homeman.playerInfo);
         homeman.player.runtimeAnimatorController = GameAssets.i.controllers[index];
         originalIndex = index;
         DisplayCharacters();
     }
 
-    private void DisplayCharacters()
+    public void DisplayCharacters()
     {
 
-        bool unlocked = (bool)playerInfo[index]["unlocked"];
+        bool unlocked = (bool)homeman.playerInfo[index]["unlocked"];
         selectBttn.SetActive(unlocked);
         storeBttn.SetActive(!unlocked);
 
         SetPanelColors(middlePanel, index);
         middleImg.GetComponent<Image>().sprite = GameAssets.i.GetCharacterSprite(index);
-        playerName.text = (string)playerInfo[index]["name"];
+        playerName.text = (string)homeman.playerInfo[index]["name"];
         description.text = GameAssets.i.characterDescription[index];
 
         int leftIndex = HandleIndex(index - 1);
         SetPanelColors(leftPanel, leftIndex);
         leftImg.GetComponent<Image>().sprite = GameAssets.i.GetCharacterSprite(leftIndex);
-        prevPlayerName.text = (string)playerInfo[leftIndex]["name"];
+        prevPlayerName.text = (string)homeman.playerInfo[leftIndex]["name"];
         prevPlayerDesc.text = GameAssets.i.characterDescription[leftIndex];
 
         int rightIndex = HandleIndex(index + 1);
         SetPanelColors(rightPanel, rightIndex);
         rightImg.GetComponent<Image>().sprite = GameAssets.i.GetCharacterSprite(rightIndex);
-        nextPlayerName.text = (string)playerInfo[rightIndex]["name"];
+        nextPlayerName.text = (string)homeman.playerInfo[rightIndex]["name"];
         nextPlayerDesc.text = GameAssets.i.characterDescription[rightIndex];
     }
 
@@ -95,7 +93,7 @@ public class characterSelect : MonoBehaviour
         {
             panel.GetComponent<Image>().color = new Color32(102,209,182,255);
         }
-        else if ((bool)playerInfo[slot]["unlocked"])
+        else if ((bool)homeman.playerInfo[slot]["unlocked"])
         {
             panel.GetComponent<Image>().color = Color.white;
         }
@@ -143,5 +141,12 @@ public class characterSelect : MonoBehaviour
         {
             return i;
         }
+    }
+
+    public void TaketoStore()
+    {
+        gameObject.SetActive(false);
+        storePanel.SetActive(true);
+        storePanel.GetComponent<store>().ShowSelectedPanel(0);
     }
 }
