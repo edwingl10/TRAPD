@@ -129,18 +129,17 @@ public class characterSelect : MonoBehaviour
 
     private int HandleIndex(int i)
     {
+        Debug.Log(i);
         if(i >= length)
         {
             return i % length;
         }
-        else if(i < 0)
+        if(i < 0)
         {
             return length - (Mathf.Abs(i) % length);
         }
-        else
-        {
-            return i;
-        }
+         return i;
+        
     }
 
     public void TaketoStore()

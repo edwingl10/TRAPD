@@ -9,6 +9,7 @@ public class UpgradesSection : MonoBehaviour
     public GameObject[] charButtons;
     public GameObject[] inactiveButtons;
     public GameObject upgradeButton;
+    public GameObject upgradeTextLabel;
 
     //color for character buttons
     private Color32 defaultColor;
@@ -28,6 +29,8 @@ public class UpgradesSection : MonoBehaviour
 
     public HomeManager homeMan;
     private int currentIndex;
+
+    public store Store;
 
     private void Start()
     {
@@ -56,7 +59,7 @@ public class UpgradesSection : MonoBehaviour
         
 
         characterImage.GetComponent<Image>().sprite = GameAssets.i.GetCharacterSprite(index);
-        characterLevelText.text = "Level: " + (int)homeMan.playerInfo[index]["upgradelvl"];
+        characterLevelText.text = "Ability Level: " + (int)homeMan.playerInfo[index]["upgradelvl"];
         DisplayUpgradeBars(index);
         DisplayUpgradeDescriptions(index);
         upgradePrice.text = ((int)homeMan.playerInfo[index]["upgradePrice"]).ToString();
@@ -86,12 +89,39 @@ public class UpgradesSection : MonoBehaviour
         if (playerIndex == 4)
         {
             upgradeButton.SetActive(false);
+            upgradeTextLabel.SetActive(false);
             nextLevelDesc.text = "Ability is fully powered up!";
         }
         else
         {
             upgradeButton.SetActive(true);
+            upgradeTextLabel.SetActive(true);
             nextLevelDesc.text = "Next Level:\n"+GameAssets.i.upgradeDescriptions[index][playerIndex + 1];
+        }
+        
+    }
+
+    public void UpgradePurchase()
+    {
+        int upPrice = (int)homeMan.playerInfo[currentIndex]["upgradePrice"];
+
+        if(homeMan.totalCoins >= upPrice)
+        {
+            int lvl = (int)homeMan.playerInfo[currentIndex]["upgradelvl"];
+
+            homeMan.totalCoins -= upPrice;
+            homeMan.playerInfo[currentIndex]["upgradePrice"] = upPrice + 200;
+            homeMan.playerInfo[currentIndex]["upgradelvl"] = lvl + 1;
+
+            homeMan.SavePlayerData();
+            homeMan.SaveCoinData();
+
+            Store.UpdateCoins();
+            ShowCharacterStats(currentIndex);
+        }
+        else
+        {
+            Store.ShowSelectedPanel(2);
         }
         
     }

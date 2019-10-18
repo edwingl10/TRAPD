@@ -46,6 +46,7 @@ public class HomeManager : MonoBehaviour
         StartCoroutine(startSunlightAnimation());
         LoadData();
         LoadPLayerData();
+        //save both information
         player.runtimeAnimatorController = GameAssets.i.controllers[index];
     }
 
@@ -165,5 +166,16 @@ public class HomeManager : MonoBehaviour
     {
         storePanel.SetActive(true);
 
+    }
+
+    public void MoreCoinsButton()
+    {
+        ShowStoreScreen();
+        StartCoroutine(showCoinsPanel());
+    }
+    private IEnumerator showCoinsPanel()
+    {
+        yield return new WaitForSeconds(0.1f);
+        storePanel.GetComponent<store>().ShowSelectedPanel(2);
     }
 }

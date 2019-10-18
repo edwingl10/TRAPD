@@ -37,12 +37,12 @@ public class CharSection : MonoBehaviour
             homeMan.SaveCoinData();
 
             Store.UpdateCoins();
-            charSelect.DisplayCharacters();
             DisplayButtons();
+            charSelect.DisplayCharacters();
         }
         else
         {
-            Debug.Log("not enough coins");
+            Store.ShowSelectedPanel(2);
         }
     }
 
