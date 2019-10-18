@@ -18,11 +18,36 @@ public class QuashPower : MonoBehaviour
     private void Start()
     {
         player = GetComponent<Player>();
-        shootInterval = 0.6f;
-        countDownInterval = 0.5f;
+        FetchAbilitylvl();
         disappearTimer = countDownInterval; //Random.Range(0.5f, 1f);
     }
-
+    private void FetchAbilitylvl()
+    {
+        int lvl = (int)player.playerInfo[player.id]["upgradelvl"];
+        switch (lvl)
+        {
+            case 0:
+                countDownInterval = 0.5f;
+                shootInterval = 0.6f;
+                break;
+            case 1:
+                countDownInterval = 0.8f;
+                shootInterval = 0.5f;
+                break;
+            case 2:
+                countDownInterval = 1.0f;
+                shootInterval = 0.4f;
+                break;
+            case 3:
+                countDownInterval = 1.2f;
+                shootInterval = 0.3f;
+                break;
+            case 4:
+                countDownInterval = 1.5f;
+                shootInterval = 0.2f;
+                break;
+        }
+    }
     private void Update()
     {
         if (player.powered)

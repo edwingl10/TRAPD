@@ -38,7 +38,6 @@ public class CharSection : MonoBehaviour
 
             Store.UpdateCoins();
             DisplayButtons();
-            charSelect.DisplayCharacters();
         }
         else
         {

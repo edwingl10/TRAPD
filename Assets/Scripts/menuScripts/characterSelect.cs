@@ -36,7 +36,6 @@ public class characterSelect : MonoBehaviour
     {
         LoadPLayerData();
         length = GameAssets.i.characterSprites.Length;
-        DisplayCharacters();
     }
 
     private void LoadPLayerData()
@@ -129,7 +128,6 @@ public class characterSelect : MonoBehaviour
 
     private int HandleIndex(int i)
     {
-        Debug.Log(i);
         if(i >= length)
         {
             return i % length;

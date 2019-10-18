@@ -13,8 +13,35 @@ public class MenderPower : MonoBehaviour
     {
         player = GetComponent<Player>();
         healthEffectRef = Resources.Load("HealthEffect");
-        healthAmount = 25;
-        usage = 1;
+        FetchAbility();
+    }
+
+    private void FetchAbility()
+    {
+        int lvl = (int)player.playerInfo[player.id]["upgradelvl"];
+        switch (lvl)
+        {
+            case 0:
+                healthAmount = 25;
+                usage = 1;
+                break;
+            case 1:
+                healthAmount = 35;
+                usage = 1;
+                break;
+            case 2:
+                healthAmount = 60;
+                usage = 1;
+                break;
+            case 3:
+                healthAmount = 40;
+                usage = 2;
+                break;
+            case 4:
+                healthAmount = 50;
+                usage = 2;
+                break;
+        }
     }
 
     private void Update()

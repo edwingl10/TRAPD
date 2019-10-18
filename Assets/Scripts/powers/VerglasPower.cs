@@ -20,13 +20,39 @@ public class VerglasPower : MonoBehaviour
 
     private void Start()
     {
-        countDownInterval = 0.5f;
-        fspeed = 10f;
-        disappearTimer = countDownInterval; //Random.Range(0.5f,1f);
         player = GetComponent<Player>();
+        FetchAbilitylvl();
+        disappearTimer = countDownInterval; //Random.Range(0.5f,1f);
         freeze = false;
     }
 
+    private void FetchAbilitylvl()
+    {
+        int lvl = (int)player.playerInfo[player.id]["upgradelvl"];
+        switch (lvl)
+        {
+            case 0:
+                countDownInterval = 0.5f;
+                fspeed = 10f;
+                break;
+            case 1:
+                countDownInterval = 0.8f;
+                fspeed = 10f;
+                break;
+            case 2:
+                countDownInterval = 0.8f;
+                fspeed = 8f;
+                break;
+            case 3:
+                countDownInterval = 1.0f;
+                fspeed = 8f;
+                break;
+            case 4:
+                countDownInterval = 1.5f;
+                fspeed = 5f;
+                break;
+        }
+    }
     private void SlowBullets()
     {
         freeze = true;

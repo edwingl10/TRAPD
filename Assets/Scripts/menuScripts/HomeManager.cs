@@ -156,6 +156,7 @@ public class HomeManager : MonoBehaviour
     public void ShowCharacterSelectionScreen()
     {
         characterSelectPanel.SetActive(true);
+        characterSelectPanel.GetComponent<characterSelect>().DisplayCharacters();
     }
     public void HideCharacterSelectionScreen()
     {
@@ -165,7 +166,6 @@ public class HomeManager : MonoBehaviour
     public void ShowStoreScreen()
     {
         storePanel.SetActive(true);
-
     }
 
     public void MoreCoinsButton()

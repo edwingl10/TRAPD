@@ -14,13 +14,37 @@ public class DartPower : MonoBehaviour
 
     void Start()
     {
-        fast = false;
-        countDownInterval = 0.5f;
-        fspeed = 33f;
-        disappearTimer = countDownInterval; //Random.Range(0.5f, 1f);
         player = GetComponent<Player>();
+        fast = false;
+        FetchAbilitylvl();
+        disappearTimer = countDownInterval; //Random.Range(0.5f, 1f);
     }
-
+    private void FetchAbilitylvl()
+    {
+        int lvl = (int)player.playerInfo[player.id]["upgradelvl"];
+        switch (lvl)
+        {
+            case 0:
+                countDownInterval = 0.5f;
+                fspeed = 33f;
+                break;
+            case 1:
+                countDownInterval = 0.8f;
+                fspeed = 33f;
+                break;
+            case 2:
+                countDownInterval = 1.0f;
+                fspeed = 33f;
+                break;
+            case 3:
+                countDownInterval = 1.2f;
+                fspeed = 38f;
+                break;
+            case 4: countDownInterval = 1.5f;
+                fspeed = 45f;
+                break;
+        }
+    }
     void Update()
     {
         if (player.powered)

@@ -12,7 +12,7 @@ public class DotzPower : MonoBehaviour
     private void Start()
     {
         player = GetComponent<Player>();
-        CountdownInterval = 0.5f;
+        FetchAbilitylvl();
         disappearTimer = CountdownInterval; //Random.Range(0.8f,1f);
     }
 
@@ -20,6 +20,29 @@ public class DotzPower : MonoBehaviour
     {
         player.canForceField = true;
         forceField.SetActive(true);
+    }
+
+    private void FetchAbilitylvl()
+    {
+        int lvl = (int)player.playerInfo[player.id]["upgradelvl"];
+        switch (lvl)
+        {
+            case 0:
+                CountdownInterval = 0.5f;
+                break;
+            case 1:
+                CountdownInterval = 0.8f;
+                break;
+            case 2:
+                CountdownInterval = 1.0f;
+                break;
+            case 3:
+                CountdownInterval = 1.2f;
+                break;
+            case 4:
+                CountdownInterval = 1.5f;
+                break;
+        }
     }
 
     private void Update()

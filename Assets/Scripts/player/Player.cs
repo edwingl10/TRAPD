@@ -24,7 +24,8 @@ public class Player : MonoBehaviour
     public bool powered;
     public bool canForceField;
 
-    private int id;
+    public int id;
+    public Hashtable[] playerInfo;
 
 
     private void Awake()
@@ -48,10 +49,12 @@ public class Player : MonoBehaviour
         {
             playerData data = saveSystem.LoadCharacterInfo();
             id = data.playerID;
+            playerInfo = data.playerInfo;
         }
         catch (Exception e)
         {
             id = 0;
+            playerInfo = GameAssets.i.playerInfo;
         }
     }
 
@@ -137,8 +140,19 @@ public class Player : MonoBehaviour
         Time.timeScale = 0.5f;
         levelMan.isGameOver = true;
         Destroy(gameObject);
+        //SaveInfo();
     }
 
+    void SaveInfo()
+    {
+        int score = GetComponent<levelManager>().scoreValue;
+        if(score > (int)playerInfo[id]["highscore"])
+        {
+            playerInfo[id]["highscore"] = score;
+            saveSystem.saveCharacterInfo(this);
+        }
+        
+    }
 
     //detects collision with coins
     void OnTriggerEnter2D(Collider2D hitInfo)

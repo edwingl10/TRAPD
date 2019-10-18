@@ -21,4 +21,9 @@ public class playerData
         playerInfo = homeMan.playerInfo;
     }
 
+    public playerData(Player player)
+    {
+        playerID = player.id;
+        playerInfo = player.playerInfo;
+    }
 }

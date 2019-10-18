@@ -9,7 +9,7 @@ public static class saveSystem
     public static void saveLevelInfo(levelManager levelman)
     {
         BinaryFormatter formatter = new BinaryFormatter();
-        string path = Application.persistentDataPath + "/info.sunn";
+        string path = Application.persistentDataPath + "/info.abcd";
         FileStream stream = new FileStream(path, FileMode.Create);
 
         gameData data = new gameData(levelman);
@@ -20,7 +20,7 @@ public static class saveSystem
     public static void saveCoinInfo(HomeManager homeMan)
     {
         BinaryFormatter formatter = new BinaryFormatter();
-        string path = Application.persistentDataPath + "/info.sunn";
+        string path = Application.persistentDataPath + "/info.abcd";
         FileStream stream = new FileStream(path, FileMode.Create);
 
         gameData data = new gameData(homeMan);
@@ -30,7 +30,7 @@ public static class saveSystem
 
     public static gameData LoadGameData()
     {
-        string path = Application.persistentDataPath + "/info.sunn";
+        string path = Application.persistentDataPath + "/info.abcd";
         if (File.Exists(path))
         {
             BinaryFormatter formatter = new BinaryFormatter();
@@ -49,7 +49,7 @@ public static class saveSystem
     public static void saveCharacterInfo(characterSelect charsel, Hashtable[] pinfo)
     {
         BinaryFormatter formatter = new BinaryFormatter();
-        string path = Application.persistentDataPath + "/char.sunn";
+        string path = Application.persistentDataPath + "/char.abcd";
         FileStream stream = new FileStream(path, FileMode.Create);
 
         playerData data = new playerData(charsel, pinfo);
@@ -59,17 +59,26 @@ public static class saveSystem
     public static void saveCharacterInfo(HomeManager homeMan)
     {
         BinaryFormatter formatter = new BinaryFormatter();
-        string path = Application.persistentDataPath + "/char.sunn";
+        string path = Application.persistentDataPath + "/char.abcd";
         FileStream stream = new FileStream(path, FileMode.Create);
 
         playerData data = new playerData(homeMan);
         formatter.Serialize(stream, data);
         stream.Close();
     }
+    public static void saveCharacterInfo(Player player)
+    {
+        BinaryFormatter formatter = new BinaryFormatter();
+        string path = Application.persistentDataPath + "/char.abcd";
+        FileStream stream = new FileStream(path, FileMode.Create);
 
+        playerData data = new playerData(player);
+        formatter.Serialize(stream, data);
+        stream.Close();
+    }
     public static playerData LoadCharacterInfo()
     {
-        string path = Application.persistentDataPath + "/char.sunn";
+        string path = Application.persistentDataPath + "/char.abcd";
         if (File.Exists(path))
         {
             BinaryFormatter formatter = new BinaryFormatter();
