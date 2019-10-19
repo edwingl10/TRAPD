@@ -26,6 +26,7 @@ public class HomeManager : MonoBehaviour
     public GameObject characterSelectPanel;
     public GameObject mainMenuPanel;
     public GameObject storePanel;
+    public GameObject highscorePanel;
 
     public int totalCoins;
 
@@ -130,7 +131,7 @@ public class HomeManager : MonoBehaviour
         soundEnabled = !soundEnabled;
         if (soundEnabled)
         {
-            soundIcon.GetComponent<Image>().color = new Color32(255,216,179,255);
+            soundIcon.GetComponent<Image>().color = Color.white;
         }
         else
         {
@@ -144,7 +145,7 @@ public class HomeManager : MonoBehaviour
         musicEnabled = !musicEnabled;
         if (musicEnabled)
         {
-            musicIcon.GetComponent<Image>().color = new Color32(255,216,179,255);
+            musicIcon.GetComponent<Image>().color = Color.white;
         }
         else
         {
@@ -177,5 +178,10 @@ public class HomeManager : MonoBehaviour
     {
         yield return new WaitForSeconds(0.1f);
         storePanel.GetComponent<store>().ShowSelectedPanel(2);
+    }
+    public void ShowHighScorePanel()
+    {
+        highscorePanel.SetActive(true);
+        highscorePanel.GetComponent<StatsSection>().DisplayScores();
     }
 }

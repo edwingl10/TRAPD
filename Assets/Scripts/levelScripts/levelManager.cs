@@ -54,6 +54,8 @@ public class levelManager : MonoBehaviour
 
     public Animator sceneTransition;
 
+    public GameObject newBestText;
+
     void Start()
     {
         sceneTransition.Play("SceneIntro");
@@ -328,5 +330,15 @@ public class levelManager : MonoBehaviour
 
         Instantiate(poisonCloud, new Vector2(x_pos, y_pos), Quaternion.identity);
 
+    }
+
+    public void BestScoreWrapper()
+    {
+        StartCoroutine(ShowBestScoreLabel());
+    }
+    public IEnumerator ShowBestScoreLabel()
+    {
+        yield return new WaitForSeconds(1.5f);
+        newBestText.SetActive(true);
     }
 }

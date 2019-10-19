@@ -140,14 +140,15 @@ public class Player : MonoBehaviour
         Time.timeScale = 0.5f;
         levelMan.isGameOver = true;
         Destroy(gameObject);
-        //SaveInfo();
+        SaveInfo();
     }
 
     void SaveInfo()
     {
-        int score = GetComponent<levelManager>().scoreValue;
+        int score = levelMan.scoreValue;
         if(score > (int)playerInfo[id]["highscore"])
         {
+            levelMan.BestScoreWrapper();
             playerInfo[id]["highscore"] = score;
             saveSystem.saveCharacterInfo(this);
         }
