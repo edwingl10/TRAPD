@@ -10,7 +10,6 @@ public class laserBeam : MonoBehaviour
     private UnityEngine.Object laserExplosionRef;
     public int damage;
 
-
     void Start()
     {
         //rb.velocity = transform.right * speed;
@@ -27,11 +26,15 @@ public class laserBeam : MonoBehaviour
 
         if (hitInfo.gameObject.CompareTag("Player"))
         {
-            hitInfo.GetComponent<Player>().TakeDamage(damage);
+			if (!hitInfo.GetComponent<Player>().canForceField)
+				FindObjectOfType<SoundManager>().Play("BulletHit");
+
+			hitInfo.GetComponent<Player>().TakeDamage(damage);
         }
         if (hitInfo.gameObject.CompareTag("Player") || hitInfo.gameObject.CompareTag("block") || hitInfo.gameObject.CompareTag("boundary"))
         {
-            GameObject bulletExplosion = (GameObject)Instantiate(laserExplosionRef);
+			
+			GameObject bulletExplosion = (GameObject)Instantiate(laserExplosionRef);
             bulletExplosion.transform.position = new Vector3(transform.position.x, transform.position.y + .3f, transform.position.z);
             Destroy(gameObject);
         }

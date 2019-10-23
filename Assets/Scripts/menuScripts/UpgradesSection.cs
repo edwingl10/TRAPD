@@ -31,6 +31,7 @@ public class UpgradesSection : MonoBehaviour
     private int currentIndex;
 
     public store Store;
+    public SoundManager soundMan;
 
     private void Start()
     {
@@ -54,6 +55,7 @@ public class UpgradesSection : MonoBehaviour
 
     public void ShowCharacterStats(int index)
     {
+        soundMan.Play("SubButtons");
         charButtons[currentIndex].GetComponent<Image>().color = defaultColor;
         charButtons[index].GetComponent<Image>().color = selectedColor;
         
@@ -107,6 +109,7 @@ public class UpgradesSection : MonoBehaviour
 
         if(homeMan.totalCoins >= upPrice)
         {
+            soundMan.Play("UpgradeSound");
             int lvl = (int)homeMan.playerInfo[currentIndex]["upgradelvl"];
 
             homeMan.totalCoins -= upPrice;

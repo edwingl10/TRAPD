@@ -30,7 +30,6 @@ public class HomeManager : MonoBehaviour
 
     public int totalCoins;
 
-    public Animator player;
     public int index; 
 
     public GameObject playerObject;
@@ -38,9 +37,11 @@ public class HomeManager : MonoBehaviour
 
     public gameData gdata;
     public Hashtable[] playerInfo;
+    public SoundManager soundMan;
 
     void Start()
     {
+        StartCoroutine(AudioController.FadeIn(GetComponent<AudioSource>(), 1f));
         showSettings = false;
         //soundEnabled = true;
         //musicEnabled = true;
@@ -48,7 +49,8 @@ public class HomeManager : MonoBehaviour
         LoadData();
         LoadPLayerData();
         //save both information
-        player.runtimeAnimatorController = GameAssets.i.controllers[index];
+        playerObject.GetComponent<SpriteRenderer>().sprite = GameAssets.i.GetCharacterSprite(index);
+        playerObject.GetComponent<Animator>().runtimeAnimatorController = GameAssets.i.controllers[index];
     }
 
     public void LoadData()
@@ -103,8 +105,9 @@ public class HomeManager : MonoBehaviour
 
     public void StartLevel()
     {
+        soundMan.Play("SubButtons");
         mainMenuPanel.SetActive(false);
-        player.GetComponent<playerMovement>().MoveRight();
+        playerObject.GetComponent<playerMovement>().MoveRight();
         StartCoroutine(TransitionToGameScene());
         //SceneManager.LoadScene("BoxScene");
         //transition.SetBool("outro", true);
@@ -113,8 +116,9 @@ public class HomeManager : MonoBehaviour
     IEnumerator TransitionToGameScene()
     {
         yield return new WaitForSeconds(4.2f);
-        player.GetComponent<playerMovement>().Jump();
+        playerObject.GetComponent<playerMovement>().Jump();
         yield return new WaitForSeconds(2f);
+        StartCoroutine(AudioController.FadeOut(GetComponent<AudioSource>(), 1f));
         transition.Play("sceneOutro");
         yield return new WaitForSeconds(1.2f);
         SceneManager.LoadScene("BoxScene");
@@ -122,6 +126,7 @@ public class HomeManager : MonoBehaviour
 
     public void SettingsButton()
     {
+        soundMan.Play("SubButtons");
         showSettings = !showSettings;
         settings.SetBool("showSettings", showSettings);
     }
@@ -156,16 +161,19 @@ public class HomeManager : MonoBehaviour
 
     public void ShowCharacterSelectionScreen()
     {
+        soundMan.Play("SubButtons");
         characterSelectPanel.SetActive(true);
         characterSelectPanel.GetComponent<characterSelect>().DisplayCharacters();
     }
     public void HideCharacterSelectionScreen()
     {
+        soundMan.Play("Exit");
         characterSelectPanel.SetActive(false);
     }
 
     public void ShowStoreScreen()
     {
+        soundMan.Play("SubButtons");
         storePanel.SetActive(true);
     }
 
@@ -181,6 +189,7 @@ public class HomeManager : MonoBehaviour
     }
     public void ShowHighScorePanel()
     {
+        soundMan.Play("SubButtons");
         highscorePanel.SetActive(true);
         highscorePanel.GetComponent<StatsSection>().DisplayScores();
     }

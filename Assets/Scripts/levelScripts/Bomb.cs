@@ -25,6 +25,8 @@ public class Bomb : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
+            
+            collision.gameObject.GetComponent<Player>().soundMan.Play("BombExpl");
             collision.gameObject.GetComponent<Player>().TakeDamage(30);
             Destroy(gameObject);
 
@@ -79,6 +81,7 @@ public class Bomb : MonoBehaviour
     IEnumerator Despawn()
     {
         yield return new WaitForSeconds(5);
+        FindObjectOfType<SoundManager>().Play("BombExpl");
         Destroy(gameObject);
         GameObject bulletExplosion = (GameObject)Instantiate(ExplosionRef);
         bulletExplosion.transform.position = new Vector3(transform.position.x, transform.position.y + .3f, transform.position.z);

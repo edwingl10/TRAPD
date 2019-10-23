@@ -31,6 +31,7 @@ public class characterSelect : MonoBehaviour
     public GameObject storeBttn;
 
     public GameObject storePanel;
+    public SoundManager soundMan;
 
     private void Awake()
     {
@@ -55,8 +56,10 @@ public class characterSelect : MonoBehaviour
     //called when chooes button is clicked
     public void HandleCharacterSelection()
     {
+        soundMan.Play("Select");
         saveSystem.saveCharacterInfo(this, homeman.playerInfo);
-        homeman.player.runtimeAnimatorController = GameAssets.i.controllers[index];
+        homeman.playerObject.GetComponent<SpriteRenderer>().sprite = GameAssets.i.GetCharacterSprite(index);
+        homeman.playerObject.GetComponent<Animator>().runtimeAnimatorController = GameAssets.i.controllers[index];
         originalIndex = index;
         DisplayCharacters();
     }

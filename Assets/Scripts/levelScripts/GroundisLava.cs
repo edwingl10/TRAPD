@@ -9,11 +9,15 @@ public class GroundisLava : MonoBehaviour
     public Player player;
     public bool isLava;
     private Animator lavaAnim;
-    
+
+    public SoundManager soundMan;
+
+    bool isPlayingFX;
 
     void Start()
     {
         isLava = false;
+        isPlayingFX = false;
         lavaAnim = GetComponent<Animator>();
     }
 
@@ -41,10 +45,20 @@ public class GroundisLava : MonoBehaviour
 
     public void checkIfDamage()
     {
-        if (isLava)
+        if (isLava && !player.canForceField)
         {
+            if (!isPlayingFX)
+                StartCoroutine(SizzleFX());
+
             player.TakeDamage(1);
         }
     }
 
+    private IEnumerator SizzleFX()
+    {
+        isPlayingFX = true;
+        soundMan.Play("LavaSizzle");
+        yield return new WaitForSeconds(1f);
+        isPlayingFX = false;
+    }
 }

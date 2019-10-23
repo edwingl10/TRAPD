@@ -5,10 +5,17 @@ using UnityEngine;
 public class Spikes : MonoBehaviour
 {
     Player player;
+    private bool spikeDamage;
 
     private void Start()
     {
         StartCoroutine("EraseSpikes");
+        spikeDamage = false;
+    }
+
+    public void PlaySpikeSound()
+    {
+        FindObjectOfType<SoundManager>().Play("SpikeSpawn");
     }
 
     void KnockBack(Rigidbody2D pgb)
@@ -28,14 +35,26 @@ public class Spikes : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            player = collision.gameObject.GetComponent<Player>();
-            if (!player.canForceField)
+            KnockBack(collision.gameObject.GetComponent<Rigidbody2D>());
+            if (!spikeDamage)
             {
-                player.TakeDamage(1);
-                KnockBack(collision.gameObject.GetComponent<Rigidbody2D>());
+                player = collision.gameObject.GetComponent<Player>();
+                if (!player.canForceField)
+                {
+                    StartCoroutine(SpikeDamage());
+                    player.TakeDamage(1);
+                }
             }
+
         }
     }
 
+    public IEnumerator SpikeDamage()
+    {
+        spikeDamage = true;
+        FindObjectOfType<SoundManager>().Play("SpikePierce");
+        yield return new WaitForSeconds(0.2f);
+        spikeDamage = false;
+    }
 
 }

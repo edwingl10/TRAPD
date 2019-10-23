@@ -20,6 +20,7 @@ public class store : MonoBehaviour
 
     public CharSection charSelectionPanel;
     public UpgradesSection upgradePanel;
+    public SoundManager soundMan;
 
     private void Start()
     {
@@ -32,11 +33,13 @@ public class store : MonoBehaviour
     }
     public void CloseStorePanel()
     {
+        soundMan.Play("Exit");
         gameObject.SetActive(false);
     }
 
     public void ShowSelectedPanel(int index)
     {
+        soundMan.Play("SubButtons");
         if (index == 1)
         {
             upgradePanel.DisplayCharacterButtons();

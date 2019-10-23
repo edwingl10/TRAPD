@@ -7,6 +7,7 @@ public class StatsSection : MonoBehaviour
 {
     public HomeManager homeMan;
     public Transform[] ranks;
+    public SoundManager soundMan;
 
     public void DisplayScores()
     {
@@ -19,6 +20,7 @@ public class StatsSection : MonoBehaviour
 
     public void CloseScoresPanel()
     {
+        soundMan.Play("Exit");
         gameObject.SetActive(false);
     }
 }

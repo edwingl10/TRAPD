@@ -33,6 +33,10 @@ public class CharacterController2D : MonoBehaviour
     public GroundisLava gil;
     float fHumpPressRemeberTime = 0.2f;
 
+    public ParticleSystem dust;
+    public SoundManager soundMan;
+
+
 	private void Awake()
 	{
 		m_Rigidbody2D = GetComponent<Rigidbody2D>();
@@ -130,9 +134,12 @@ public class CharacterController2D : MonoBehaviour
 				Flip();
 			}
 		}
+
         // If the player should jump... if grounded, can jump and y velocity is 0
         if (m_Grounded && jump && Mathf.Approximately(m_Rigidbody2D.velocity.y, 0))
 		{
+            CreateDust();
+            soundMan.Play("Jump");
 			// Add a vertical force to the player.
 			m_Grounded = false;
 			m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
@@ -142,11 +149,17 @@ public class CharacterController2D : MonoBehaviour
 
 	private void Flip()
 	{
+        if (m_Grounded)
+            CreateDust();
+
 		// Switch the way the player is labelled as facing.
 		m_FacingRight = !m_FacingRight;
-
 		transform.Rotate(0f,180f, 0f);
 	}
 
+    void CreateDust()
+    {
+        dust.Play();
+    }
    
 }

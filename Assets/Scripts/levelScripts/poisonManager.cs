@@ -7,7 +7,7 @@ public class poisonManager : MonoBehaviour
     public ParticleSystem poisonedEffect;
     Player player;
     private int poisoncounter;
-    
+    public SoundManager soundMan;
 
     private void Start()
     {
@@ -17,6 +17,7 @@ public class poisonManager : MonoBehaviour
 
     public void TogglePoisonDamage()
     {
+        soundMan.Play("Acid");
         poisoncounter = 0;
         poisonedEffect.Play();
         InvokeRepeating("PoisonDamage", 1f, 2f);

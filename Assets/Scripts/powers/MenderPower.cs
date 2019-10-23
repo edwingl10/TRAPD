@@ -48,6 +48,9 @@ public class MenderPower : MonoBehaviour
     {
         if(player.currentxp >= player.Powerxp / usage)
         {
+            if(!player.powerButton.activeInHierarchy)
+                player.soundMan.Play("PowerReady");
+
             player.powerButton.SetActive(true);
         }
         else
@@ -63,6 +66,7 @@ public class MenderPower : MonoBehaviour
 
     public void GiveHealth()
     {
+        player.soundMan.Play("Heal");
         player.health += healthAmount;
         PointsPopup.Create(gameObject.transform.position, "+"+healthAmount.ToString()+"hp", Color.green);
         GameObject healthEffect= (GameObject)Instantiate(healthEffectRef);

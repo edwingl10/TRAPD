@@ -7,10 +7,11 @@ public class weapon2 : MonoBehaviour
     public Transform firePoint;
     public Transform firePoint2;
     public GameObject bulletPrefab;
-
+    public SoundManager soundMan;
 
     public void Shoot()
     {
+        soundMan.Play("BulletShot");
         Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
         Instantiate(bulletPrefab, firePoint2.position, firePoint2.rotation);
     }

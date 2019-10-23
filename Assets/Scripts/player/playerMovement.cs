@@ -7,16 +7,19 @@ public class playerMovement : MonoBehaviour
     public CharacterController2D controller;
     private Animator animator;
 
-    float horizontalMove = 0f;
+    float horizontalMove;
     public float runspeed = 27f;
 
-	bool jump = false;
-    bool moveLeft = false;
+    bool jump;
+    bool moveLeft;
     bool moveRight;
 
     private void Start()
     {
         animator = GetComponent<Animator>();
+        horizontalMove = 0f;
+        jump = false;
+        moveLeft = false;
     }
 
     void Update()

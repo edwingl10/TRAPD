@@ -10,6 +10,7 @@ public class CharSection : MonoBehaviour
     public HomeManager homeMan;
     public store Store;
     public characterSelect charSelect;
+    public SoundManager soundMan;
 
 
     public void DisplayButtons()
@@ -31,6 +32,7 @@ public class CharSection : MonoBehaviour
     {
         if(homeMan.totalCoins >= (int)homeMan.playerInfo[index]["price"])
         {
+            soundMan.Play("Purchase");
             homeMan.totalCoins -= (int)homeMan.playerInfo[index]["price"];
             homeMan.playerInfo[index]["unlocked"] = true;
             homeMan.SavePlayerData();

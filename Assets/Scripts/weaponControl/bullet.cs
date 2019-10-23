@@ -24,11 +24,16 @@ public class bullet : MonoBehaviour
     void OnTriggerEnter2D(Collider2D hitInfo){
 
         if(hitInfo.gameObject.CompareTag("Player")){
+
+           if(!hitInfo.GetComponent<Player>().canForceField)
+				FindObjectOfType<SoundManager>().Play("BulletHit");
+
             hitInfo.GetComponent<Player>().TakeDamage(damage);
         }
         //if (tagName != "yellowCoin" && tagName !="redCoin" && tagName!= "blueCoin" && tagName!= "healthCoin")
         if(hitInfo.gameObject.CompareTag("Player") || hitInfo.gameObject.CompareTag("block") || hitInfo.gameObject.CompareTag("boundary"))
         {
+           
             GameObject bulletExplosion = (GameObject)Instantiate(bulletExplosionRef);
             bulletExplosion.transform.position = new Vector3(transform.position.x, transform.position.y + .3f, transform.position.z);
             Destroy(gameObject);

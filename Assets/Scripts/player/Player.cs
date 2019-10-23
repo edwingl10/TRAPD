@@ -27,6 +27,7 @@ public class Player : MonoBehaviour
     public int id;
     public Hashtable[] playerInfo;
 
+    public SoundManager soundMan;
 
     private void Awake()
     {
@@ -119,7 +120,10 @@ public class Player : MonoBehaviour
 	{
 		if (percent >= 1.0)
 		{
-            currentxp = Powerxp;
+			if (!powerButton.activeInHierarchy)
+				soundMan.Play("PowerReady");
+
+			currentxp = Powerxp;
 			bar2.localScale = new Vector3(1f, 1f);
 			powerButton.SetActive(true);
 		}
@@ -161,6 +165,7 @@ public class Player : MonoBehaviour
 
         if (hitInfo.gameObject.CompareTag("yellowCoin"))
         {
+            soundMan.Play("CoinCollect");
             levelMan.AddCoinsScore(10);
 			currentxp += 8;
 			UpdatePowerupBar(currentxp / Powerxp);
@@ -170,6 +175,7 @@ public class Player : MonoBehaviour
         }
         else if (hitInfo.gameObject.CompareTag("redCoin"))
         {
+            soundMan.Play("CoinCollect");
             levelMan.AddCoinsScore(30);
 			currentxp += 15;
 			UpdatePowerupBar(currentxp/Powerxp);
@@ -180,7 +186,8 @@ public class Player : MonoBehaviour
         
         else if (hitInfo.gameObject.CompareTag("blueCoin"))
 		{
-			levelMan.AddCoinsScore(50);
+            soundMan.Play("PowerReady");
+            levelMan.AddCoinsScore(50);
             currentxp = 100;
             if (currentxp >Powerxp)
             {
@@ -194,6 +201,7 @@ public class Player : MonoBehaviour
 
         else if (hitInfo.gameObject.CompareTag("healthCoin"))
         {
+            soundMan.Play("Heal");
             health += 25;
             if (health > StartingHealth)
             {

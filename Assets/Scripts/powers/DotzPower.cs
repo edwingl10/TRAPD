@@ -9,6 +9,7 @@ public class DotzPower : MonoBehaviour
     private float CountdownInterval;
     public GameObject forceField;
 
+
     private void Start()
     {
         player = GetComponent<Player>();

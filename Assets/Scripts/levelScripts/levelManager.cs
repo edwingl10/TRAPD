@@ -55,9 +55,12 @@ public class levelManager : MonoBehaviour
     public Animator sceneTransition;
 
     public GameObject newBestText;
+    public SoundManager soundMan;
+
 
     void Start()
     {
+        StartCoroutine(AudioController.FadeIn(GetComponent<AudioSource>(), 1f));
         sceneTransition.Play("SceneIntro");
 
         isGameOver = false;
@@ -199,17 +202,20 @@ public class levelManager : MonoBehaviour
     // ---------------------Menu UI handling --------------------------
     public void PauseGame()
     {
+        soundMan.Play("Pause");
         Time.timeScale = 0f;
         pausePanel.SetActive(true);
     }
 
     public void ResumeGame()
     {
+        soundMan.Play("OptionsButton");
         pausePanel.SetActive(false);
         Time.timeScale = 1f;
     }
     public void RestartLevel()
     {
+        soundMan.Play("OptionsButton");
         SceneManager.LoadScene("BoxSCene");
         Time.timeScale = 1f;
     }
@@ -225,6 +231,7 @@ public class levelManager : MonoBehaviour
     }
     public void GoMainMenu()
     {
+        soundMan.Play("OptionsButton");
         SceneManager.LoadScene("MainMenu");
         Time.timeScale = 1f;
     }
