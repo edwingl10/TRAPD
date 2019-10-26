@@ -29,6 +29,9 @@ public class Player : MonoBehaviour
 
     public SoundManager soundMan;
 
+    public GameObject secondLifePanel;
+    public int deaths;
+
     private void Awake()
     {
         //GetComponent<DotzPower>().enabled = true;
@@ -88,12 +91,16 @@ public class Player : MonoBehaviour
     void Start()
     {
         StartCoroutine(PlayerIntro());
+        deaths = 0;
         canForceField = false;
         powered = false;
+        //health = 200;
+        SetUpHealth();
         StartingHealth = health;
 		currentxp = 0;
         bar = HealthBar.transform.Find("Bar");
 		bar2 = PowerBar.transform.Find("Bar");
+        PlayerPrefs.SetInt("adHp", 0);
     }
 
     public void TakeDamage(int Damage)
@@ -141,10 +148,57 @@ public class Player : MonoBehaviour
 
     void Die()
     {
+        //Time.timeScale = 0.5f;
+        //levelMan.isGameOver = true;
+        //Destroy(gameObject);
+        //SaveInfo();
+
         Time.timeScale = 0.5f;
-        levelMan.isGameOver = true;
-        Destroy(gameObject);
-        SaveInfo();
+        if(deaths == 0)
+        {
+            levelMan.StopCounter();
+            GetComponent<SpriteRenderer>().enabled = false;
+            GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionY|RigidbodyConstraints2D.FreezeRotation;
+            GetComponent<CircleCollider2D>().enabled = false;
+
+            StartCoroutine(ShowSecondLifePanel());
+        }
+        else
+        {
+            levelMan.isGameOver = true;
+            SaveInfo();
+            Destroy(gameObject);
+        }
+    }
+
+    IEnumerator ShowSecondLifePanel()
+    {
+        yield return new WaitForSeconds(0.5f);
+        Time.timeScale = 1;
+        yield return new WaitForSeconds(0.3f);
+        deaths++;
+        secondLifePanel.SetActive(true);
+    }
+
+    public void RestoreLifeWrapper()
+    {
+        StartCoroutine(RestoreLife());
+    }
+
+    private IEnumerator RestoreLife()
+    {
+        health = 150;
+        StartingHealth = 150;
+        SetHealthBarSize(1f);
+
+        secondLifePanel.SetActive(false);
+
+        GetComponent<SpriteRenderer>().enabled = true;
+        GetComponent<Rigidbody2D>().constraints &= ~RigidbodyConstraints2D.FreezePositionY;
+        GetComponent<CircleCollider2D>().enabled = true;
+
+        yield return new WaitForSeconds(1f);
+        levelMan.ResumeCounter();
     }
 
     void SaveInfo()
@@ -223,4 +277,19 @@ public class Player : MonoBehaviour
     {
         powered = true;
     }
+
+    void SetUpHealth()
+    {
+        int adReward = PlayerPrefs.GetInt("adHp");
+        if(adReward == 1)
+        {
+            health = 200;
+        }
+        else
+        {
+            health = 150;
+        }
+    }
+
+    
 }

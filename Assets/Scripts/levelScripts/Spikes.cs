@@ -21,8 +21,7 @@ public class Spikes : MonoBehaviour
     void KnockBack(Rigidbody2D pgb)
     {
         Vector3 moveDirection = transform.position - pgb.transform.position;
-        //pgb.AddForce(moveDirection.normalized * -90f);
-        pgb.AddForce( new Vector3(0f, moveDirection.normalized.y * -90f,0f));
+        pgb.AddForce( new Vector3(moveDirection.normalized.x * -90f,moveDirection.normalized.y * -90f,0f));
     }
 
     IEnumerator EraseSpikes()
@@ -36,6 +35,7 @@ public class Spikes : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             KnockBack(collision.gameObject.GetComponent<Rigidbody2D>());
+
             if (!spikeDamage)
             {
                 player = collision.gameObject.GetComponent<Player>();

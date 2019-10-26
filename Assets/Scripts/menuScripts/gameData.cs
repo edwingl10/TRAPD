@@ -16,4 +16,8 @@ public class gameData
     {
         totalCoins = homeMan.totalCoins;
     }
+    public gameData(int coins)
+    {
+        totalCoins = coins;
+    }
 }

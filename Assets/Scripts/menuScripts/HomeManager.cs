@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 using TMPro;
+
 
 public class HomeManager : MonoBehaviour
 {
@@ -18,10 +18,6 @@ public class HomeManager : MonoBehaviour
     //settings
     public Animator settings;
     private bool showSettings;
-    public GameObject soundIcon;
-    private bool soundEnabled = true; 
-    public GameObject musicIcon;
-    private bool musicEnabled=true;
 
     public GameObject characterSelectPanel;
     public GameObject mainMenuPanel;
@@ -39,9 +35,24 @@ public class HomeManager : MonoBehaviour
     public Hashtable[] playerInfo;
     public SoundManager soundMan;
 
+    public GameObject adErrorPanel;
+
+    private bool music;
+
     void Start()
     {
-        StartCoroutine(AudioController.FadeIn(GetComponent<AudioSource>(), 1f));
+        try
+        {
+            soundData data = saveSystem.LoadSoundPref();
+            music = data.music;
+        }catch(Exception e)
+        {
+            music = true;
+        }
+
+        if(music)
+            StartCoroutine(AudioController.FadeIn(GetComponent<AudioSource>(), 1f));
+
         showSettings = false;
         //soundEnabled = true;
         //musicEnabled = true;
@@ -93,6 +104,7 @@ public class HomeManager : MonoBehaviour
         coinsText.text = totalCoins.ToString();
     }
 
+
     IEnumerator startSunlightAnimation()
     {
         yield return new WaitForSeconds(5);
@@ -109,8 +121,6 @@ public class HomeManager : MonoBehaviour
         mainMenuPanel.SetActive(false);
         playerObject.GetComponent<playerMovement>().MoveRight();
         StartCoroutine(TransitionToGameScene());
-        //SceneManager.LoadScene("BoxScene");
-        //transition.SetBool("outro", true);
     }
 
     IEnumerator TransitionToGameScene()
@@ -131,33 +141,6 @@ public class HomeManager : MonoBehaviour
         settings.SetBool("showSettings", showSettings);
     }
 
-    public void SoundButton()
-    {
-        soundEnabled = !soundEnabled;
-        if (soundEnabled)
-        {
-            soundIcon.GetComponent<Image>().color = Color.white;
-        }
-        else
-        {
-            soundIcon.GetComponent<Image>().color = new Color32(168, 117, 68, 255);
-        }
-        
-    }
-
-    public void MusicButton()
-    {
-        musicEnabled = !musicEnabled;
-        if (musicEnabled)
-        {
-            musicIcon.GetComponent<Image>().color = Color.white;
-        }
-        else
-        {
-            musicIcon.GetComponent<Image>().color = new Color32(168, 117, 68, 255);
-
-        }
-    }
 
     public void ShowCharacterSelectionScreen()
     {
@@ -192,5 +175,16 @@ public class HomeManager : MonoBehaviour
         soundMan.Play("SubButtons");
         highscorePanel.SetActive(true);
         highscorePanel.GetComponent<StatsSection>().DisplayScores();
+    }
+
+    public void HideAdErrorPanel()
+    {
+        adErrorPanel.SetActive(false);
+    }
+
+    
+    private void OnApplicationQuit()
+    {
+        PlayerPrefs.SetInt("adHp", 0);
     }
 }

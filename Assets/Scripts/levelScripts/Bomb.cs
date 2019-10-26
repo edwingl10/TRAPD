@@ -25,7 +25,7 @@ public class Bomb : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            
+            KnockBack(collision.gameObject.GetComponent<Rigidbody2D>());
             collision.gameObject.GetComponent<Player>().soundMan.Play("BombExpl");
             collision.gameObject.GetComponent<Player>().TakeDamage(30);
             Destroy(gameObject);
@@ -85,5 +85,11 @@ public class Bomb : MonoBehaviour
         Destroy(gameObject);
         GameObject bulletExplosion = (GameObject)Instantiate(ExplosionRef);
         bulletExplosion.transform.position = new Vector3(transform.position.x, transform.position.y + .3f, transform.position.z);
+    }
+
+    void KnockBack(Rigidbody2D pgb)
+    {
+        Vector3 moveDirection = transform.position - pgb.transform.position;
+        pgb.AddForce(new Vector3(moveDirection.normalized.x * -700f, moveDirection.normalized.y * -500f, 0f));
     }
 }

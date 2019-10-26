@@ -4,10 +4,19 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
+using UnityEngine.Monetization;
 
 //takes care of score, coins counter
 public class levelManager : MonoBehaviour
 {
+    private string placementId = "video";
+#if UNITY_IOS
+   private string gameId = "3337101";
+#elif UNITY_ANDROID
+    private string gameId = "3337100";
+#endif
+
+    public bool reviveAd;
     //keeps track of total score and coins collected
     public int scoreValue;
     public int coinsValue;
@@ -57,13 +66,38 @@ public class levelManager : MonoBehaviour
     public GameObject newBestText;
     public SoundManager soundMan;
 
+    private bool music;
+    public GameObject musicBttn;
+    public GameObject soundBttn;
+    public GameObject restartWarningMsg;
+    public GameObject HomeWarningMsg;
+    public GameObject doubleCoinsError;
+
+    public gameData gdata;
+
+    private void Awake()
+    {
+        try
+        {
+            soundData data = saveSystem.LoadSoundPref();
+            music = data.music;
+        }
+        catch (System.Exception e)
+        {
+            music = true;
+        }
+        LoadGameData();
+        if (music)
+            StartCoroutine(AudioController.FadeIn(GetComponent<AudioSource>(), 1f));
+    }
 
     void Start()
     {
-        StartCoroutine(AudioController.FadeIn(GetComponent<AudioSource>(), 1f));
         sceneTransition.Play("SceneIntro");
+        Monetization.Initialize(gameId, true);
 
         isGameOver = false;
+        reviveAd = false;
         disappearCounter = 0;
         spikeDisappearCounter = 0;
         bombSpawnCounter = 0;
@@ -88,9 +122,8 @@ public class levelManager : MonoBehaviour
     {
         if (scoreValue > 1 && scoreValue % 200 == 0) //good at 200
         {
-            //once every level has gone, choose on at random
+            //once every level has gone, choose one at random
 
-            
             if (levelNum >5)
             {
                 ObstacleManager(Random.Range(1, 6));
@@ -115,12 +148,23 @@ public class levelManager : MonoBehaviour
         }
     }
 
+    public void StopCounter()
+    {
+        CancelInvoke("UpdateScore");
+    }
+    public void ResumeCounter()
+    {
+        InvokeRepeating("UpdateScore", 0.2f, 0.2f);
+    }
+
     void SaveGameData()
     {
+        /**
         try
         {
-            gameData data = saveSystem.LoadGameData();
-            coinsValue += data.totalCoins;
+            //gameData data = saveSystem.LoadGameData();
+            //gdata = saveSystem.LoadGameData();
+            coinsValue += gdata.totalCoins;
         } catch(System.Exception e)
         {
             Debug.Log(e);
@@ -130,9 +174,31 @@ public class levelManager : MonoBehaviour
         {
             coinsValue = 1000000;
         }
-        saveSystem.saveLevelInfo(this);
+        //.saveLevelInfo(this); **/
+        saveSystem.SaveCoinData(coinsValue + gdata.totalCoins);
     }
 
+    public void UpdateCoins()
+    {
+        saveSystem.SaveCoinData(gdata.totalCoins);
+    }
+
+    void LoadGameData()
+    {
+        try
+        {
+            gdata = saveSystem.LoadGameData();
+        }
+        catch (System.Exception)
+        {
+            coinsValue = 0;
+        }
+    }
+
+    public void HideDoubleCoinsErrorMsg()
+    {
+        doubleCoinsError.SetActive(false);
+    }
     //------------- coin logic -------------------
 
     public void AddCoinsScore(int points)
@@ -205,22 +271,35 @@ public class levelManager : MonoBehaviour
         soundMan.Play("Pause");
         Time.timeScale = 0f;
         pausePanel.SetActive(true);
+        musicBttn.SetActive(true);
+        soundBttn.SetActive(true);
     }
 
     public void ResumeGame()
     {
         soundMan.Play("OptionsButton");
         pausePanel.SetActive(false);
+        musicBttn.SetActive(false);
+        soundBttn.SetActive(false);
         Time.timeScale = 1f;
     }
-    public void RestartLevel()
+    public void RestartLevel(bool pauseMenu)
     {
-        soundMan.Play("OptionsButton");
-        SceneManager.LoadScene("BoxSCene");
-        Time.timeScale = 1f;
+        if (pauseMenu)
+        {
+            restartWarningMsg.SetActive(true);
+        }
+        else
+        {
+            soundMan.Play("OptionsButton");
+            SceneManager.LoadScene("BoxSCene");
+            Time.timeScale = 1f;
+        }
+        
     }
     public IEnumerator ShowGameOverPanel()
     {
+        ShowAd();
         yield return new WaitForSeconds(0.5f);
         Time.timeScale = 1;
         yield return new WaitForSeconds(0.3f);
@@ -229,13 +308,38 @@ public class levelManager : MonoBehaviour
         coinsText.text = coinsValue.ToString();
         SaveGameData();
     }
-    public void GoMainMenu()
-    {
-        soundMan.Play("OptionsButton");
-        SceneManager.LoadScene("MainMenu");
-        Time.timeScale = 1f;
-    }
 
+    public void ShowGameOverFromOther()
+    {
+        ShowAd();
+        gameOverPanel.SetActive(true);
+        scoreText.text = scoreValue.ToString();
+        coinsText.text = coinsValue.ToString();
+        SaveGameData();
+    }
+  
+    public void GoMainMenu(bool pauseMenu)
+    {
+        if (pauseMenu)
+        {
+            HomeWarningMsg.SetActive(true);
+        }
+        else
+        {
+            soundMan.Play("OptionsButton");
+            SceneManager.LoadScene("MainMenu");
+            Time.timeScale = 1f;
+        }
+        
+    }
+    public void HideRestartWarningMsg()
+    {
+        restartWarningMsg.SetActive(false);
+    }
+    public void HideHomeWarningMsg()
+    {
+        HomeWarningMsg.SetActive(false);
+    }
     // ------------- Obstacle Logic ------------- 
     void ObstacleManager(int level)
     {
@@ -348,4 +452,30 @@ public class levelManager : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
         newBestText.SetActive(true);
     }
+
+
+    public void ShowAd()
+    {
+        if(!reviveAd && Random.value > 0.5)
+        {
+            StartCoroutine(ShowAdWhenReady());
+        }
+    }
+
+    private IEnumerator ShowAdWhenReady()
+    {
+        while (!Monetization.IsReady(placementId))
+        {
+            yield return new WaitForSeconds(0.25f);
+        }
+
+        ShowAdPlacementContent ad = null;
+        ad = Monetization.GetPlacementContent(placementId) as ShowAdPlacementContent;
+
+        if (ad != null)
+        {
+            ad.Show();
+        }
+    }
+
 }

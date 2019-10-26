@@ -1,0 +1,64 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.Advertisements;
+
+[RequireComponent (typeof (Button))]
+public class RewardAd : MonoBehaviour, IUnityAdsListener
+{
+    private string gameId = "3337100";
+    Button myButton;
+    public string myPlacementId = "rewardedVideo";
+
+    void Start()
+    {
+        myButton = GetComponent<Button>();
+
+        myButton.interactable = Advertisement.IsReady(myPlacementId);
+
+        if (myButton) myButton.onClick.AddListener(ShowRewardedVideo);
+
+        Advertisement.AddListener(this);
+        Advertisement.Initialize(gameId, true);
+    }
+
+    void ShowRewardedVideo()
+    {
+        Advertisement.Show(myPlacementId);
+    }
+
+    public void OnUnityAdsReady(string placementId)
+    {
+        if(placementId == myPlacementId)
+        {
+            myButton.interactable = true;
+        }
+    }
+
+    public void OnUnityAdsDidFinish(string placementId, ShowResult showResult)
+    {
+        if(showResult == ShowResult.Finished)
+        {
+            Debug.Log("Ad finished completely");
+        }
+        else if(showResult == ShowResult.Skipped)
+        {
+            Debug.Log("The ad was skipped");
+        }
+        else if(showResult == ShowResult.Failed)
+        {
+            Debug.LogWarning("The ad did not finish due to an error.");
+        }
+    }
+
+    public void OnUnityAdsDidError(string message)
+    {
+        Debug.Log(message);
+    }
+
+    public void OnUnityAdsDidStart(string placementId)
+    {
+
+    }
+}
