@@ -23,6 +23,7 @@ public class HomeManager : MonoBehaviour
     public GameObject mainMenuPanel;
     public GameObject storePanel;
     public GameObject highscorePanel;
+    public GameObject infoPanel;
 
     public int totalCoins;
 
@@ -182,6 +183,11 @@ public class HomeManager : MonoBehaviour
         adErrorPanel.SetActive(false);
     }
 
+    public void ShowInfoPanel()
+    {
+        soundMan.Play("SubButtons");
+        infoPanel.SetActive(true);
+    }
     
     private void OnApplicationQuit()
     {

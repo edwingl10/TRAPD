@@ -107,6 +107,7 @@ public class characterSelect : MonoBehaviour
 
     public void NextButton()
     {
+        soundMan.Play("SubButtons");
         index++;
         index = HandleIndex(index);
         /**
@@ -119,6 +120,7 @@ public class characterSelect : MonoBehaviour
 
     public void PrevButton()
     {
+        soundMan.Play("SubButtons");
         index--;
         index = HandleIndex(index);
         /**

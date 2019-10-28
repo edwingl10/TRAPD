@@ -130,11 +130,14 @@ public class levelManager : MonoBehaviour
             }
             else
             {
-                ObstacleManager(levelNum);
+                //ObstacleManager(levelNum);
+                ObstacleManager(5);
                 levelNum++; 
             } 
             
         }
+        if (scoreValue == 1000)
+            ChangeCoinSpawnRate();
 
         if (!isGameOver)
         {
@@ -265,6 +268,12 @@ public class levelManager : MonoBehaviour
         Instantiate(healthCoin, new Vector3(blocks[index].transform.position.x + x_axis, blocks[index].transform.position.y + 1.25f, 0), Quaternion.identity);
     }
 
+    void ChangeCoinSpawnRate()
+    {
+        min = 6f;
+        max = 8f;
+    }
+
     // ---------------------Menu UI handling --------------------------
     public void PauseGame()
     {
@@ -311,6 +320,7 @@ public class levelManager : MonoBehaviour
 
     public void ShowGameOverFromOther()
     {
+        isGameOver = true;
         ShowAd();
         gameOverPanel.SetActive(true);
         scoreText.text = scoreValue.ToString();

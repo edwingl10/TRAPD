@@ -34,15 +34,17 @@ public class Spikes : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            KnockBack(collision.gameObject.GetComponent<Rigidbody2D>());
+            player = collision.gameObject.GetComponent<Player>();
+
+            if(!player.canForceField)
+                KnockBack(collision.gameObject.GetComponent<Rigidbody2D>());
 
             if (!spikeDamage)
             {
-                player = collision.gameObject.GetComponent<Player>();
                 if (!player.canForceField)
                 {
                     StartCoroutine(SpikeDamage());
-                    player.TakeDamage(1);
+                    player.TakeDamage(15);
                 }
             }
 

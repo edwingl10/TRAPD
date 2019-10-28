@@ -32,6 +32,10 @@ public class Player : MonoBehaviour
     public GameObject secondLifePanel;
     public int deaths;
 
+    private UnityEngine.Object ReviveEffectRef;
+    private UnityEngine.Object DieEffectRef;
+    public GameObject canvas;
+
     private void Awake()
     {
         //GetComponent<DotzPower>().enabled = true;
@@ -94,13 +98,15 @@ public class Player : MonoBehaviour
         deaths = 0;
         canForceField = false;
         powered = false;
-        //health = 200;
         SetUpHealth();
         StartingHealth = health;
 		currentxp = 0;
         bar = HealthBar.transform.Find("Bar");
 		bar2 = PowerBar.transform.Find("Bar");
         PlayerPrefs.SetInt("adHp", 0);
+
+        ReviveEffectRef = Resources.Load("ReviveEffect");
+        DieEffectRef = Resources.Load("bulletExplosion");
     }
 
     public void TakeDamage(int Damage)
@@ -148,10 +154,8 @@ public class Player : MonoBehaviour
 
     void Die()
     {
-        //Time.timeScale = 0.5f;
-        //levelMan.isGameOver = true;
-        //Destroy(gameObject);
-        //SaveInfo();
+        GameObject dieEffect = (GameObject)Instantiate(DieEffectRef);
+        dieEffect.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
 
         Time.timeScale = 0.5f;
         if(deaths == 0)
@@ -192,10 +196,17 @@ public class Player : MonoBehaviour
         SetHealthBarSize(1f);
 
         secondLifePanel.SetActive(false);
+        canvas.SetActive(false);
+
+        GameObject ReviveEffect = (GameObject)Instantiate(ReviveEffectRef);
+        ReviveEffect.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+        yield return new WaitForSeconds(3.4f);
+        soundMan.Play("Heal");
 
         GetComponent<SpriteRenderer>().enabled = true;
         GetComponent<Rigidbody2D>().constraints &= ~RigidbodyConstraints2D.FreezePositionY;
         GetComponent<CircleCollider2D>().enabled = true;
+        canvas.SetActive(true);
 
         yield return new WaitForSeconds(1f);
         levelMan.ResumeCounter();

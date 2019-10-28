@@ -1513,8 +1513,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -422, y: 129}
-  m_SizeDelta: {x: 250, y: 260}
+  m_AnchoredPosition: {x: -432, y: 142}
+  m_SizeDelta: {x: 260, y: 280}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &257908231
 MonoBehaviour:
@@ -2196,8 +2196,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 430, y: 129}
-  m_SizeDelta: {x: 250, y: 260}
+  m_AnchoredPosition: {x: 430, y: 142}
+  m_SizeDelta: {x: 260, y: 280}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &319450855
 MonoBehaviour:
@@ -2530,8 +2530,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wep: {fileID: 43424141}
   levelman: {fileID: 519420030}
-  min: 10
-  max: 15
+  min: 9
+  max: 13
 --- !u!95 &364409872
 Animator:
   serializedVersion: 3
@@ -3466,7 +3466,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: ec66b51c0d8204f14893111b4e6ae7da, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.5
+  m_Volume: 0.8
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -3901,8 +3901,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 150, y: 129}
-  m_SizeDelta: {x: 250, y: 260}
+  m_AnchoredPosition: {x: 150, y: 142}
+  m_SizeDelta: {x: 260, y: 280}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &584968209
 MonoBehaviour:
@@ -10895,8 +10895,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wep: {fileID: 1955675117}
   levelman: {fileID: 519420030}
-  min: 10
-  max: 15
+  min: 9
+  max: 13
 --- !u!1 &852263669
 GameObject:
   m_ObjectHideFlags: 0
@@ -13668,8 +13668,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -128, y: 129}
-  m_SizeDelta: {x: 250, y: 260}
+  m_AnchoredPosition: {x: -138.00012, y: 142}
+  m_SizeDelta: {x: 260, y: 280}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1278337643
 MonoBehaviour:
@@ -14354,6 +14354,7 @@ MonoBehaviour:
   soundMan: {fileID: 1796081072}
   secondLifePanel: {fileID: 2080632337}
   deaths: 0
+  canvas: {fileID: 1035649097}
 --- !u!114 &1311236825
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18851,17 +18852,17 @@ MonoBehaviour:
   sounds:
   - name: BulletHit
     clip: {fileID: 8300000, guid: 7eab98662e4f447658a70cfa276b02c2, type: 3}
-    volume: 0.5
+    volume: 0.6
     pitch: 1
     source: {fileID: 0}
   - name: CoinCollect
     clip: {fileID: 8300000, guid: c9368ec2a56854129870435bf4d16e0b, type: 3}
-    volume: 0.8
+    volume: 1
     pitch: 1
     source: {fileID: 0}
   - name: Jump
     clip: {fileID: 8300000, guid: d4f121274f04f4a47a90b030a965d99a, type: 3}
-    volume: 0.2
+    volume: 0.3
     pitch: 1
     source: {fileID: 0}
   - name: LavaSizzle
@@ -18871,12 +18872,12 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: PowerReady
     clip: {fileID: 8300000, guid: d0bf1c9868fa2494390f05912c159b3a, type: 3}
-    volume: 0.5
+    volume: 1
     pitch: 1
     source: {fileID: 0}
   - name: Heal
     clip: {fileID: 8300000, guid: c36d0aa10405b4480bc547c4eeb26db3, type: 3}
-    volume: 0.5
+    volume: 0.6
     pitch: 1
     source: {fileID: 0}
   - name: LaserShoot
@@ -18891,7 +18892,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: BulletShot
     clip: {fileID: 8300000, guid: 81f756280d5bb44fab9243ab96cf2362, type: 3}
-    volume: 0.1
+    volume: 0.2
     pitch: 1
     source: {fileID: 0}
   - name: Acid
@@ -18906,22 +18907,22 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: SpikePierce
     clip: {fileID: 8300000, guid: a0db5513e4dc04b99bae6a19b0947841, type: 3}
-    volume: 0.5
+    volume: 0.6
     pitch: 1
     source: {fileID: 0}
   - name: Pause
     clip: {fileID: 8300000, guid: 3a26a556f45ef407abd4990c1029987e, type: 3}
-    volume: 0.5
+    volume: 1
     pitch: 1
     source: {fileID: 0}
   - name: OptionsButton
     clip: {fileID: 8300000, guid: 61b5671cf241946879584f031120b642, type: 3}
-    volume: 0.5
+    volume: 1
     pitch: 1
     source: {fileID: 0}
   - name: CoinReward
     clip: {fileID: 8300000, guid: da1013458b55b47af87de08265cc7757, type: 3}
-    volume: 0.5
+    volume: 1
     pitch: 1
     source: {fileID: 0}
 --- !u!82 &1796081073

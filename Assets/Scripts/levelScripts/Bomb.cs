@@ -27,7 +27,7 @@ public class Bomb : MonoBehaviour
         {
             KnockBack(collision.gameObject.GetComponent<Rigidbody2D>());
             collision.gameObject.GetComponent<Player>().soundMan.Play("BombExpl");
-            collision.gameObject.GetComponent<Player>().TakeDamage(30);
+            collision.gameObject.GetComponent<Player>().TakeDamage(40);
             Destroy(gameObject);
 
             GameObject bulletExplosion = (GameObject)Instantiate(ExplosionRef);

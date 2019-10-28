@@ -34,12 +34,6 @@ public class CoinsSection : MonoBehaviour
         }
     }
 
-    public void PurchaseCoins(int amount)
-    {
-        homeMan.totalCoins += amount;
-        homeMan.SaveCoinData();
-        Store.UpdateCoins();
-    }
 
     private void AdCoins(int amount)
     {

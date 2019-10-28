@@ -31,7 +31,7 @@ public class bullet : MonoBehaviour
             hitInfo.GetComponent<Player>().TakeDamage(damage);
         }
         //if (tagName != "yellowCoin" && tagName !="redCoin" && tagName!= "blueCoin" && tagName!= "healthCoin")
-        if(hitInfo.gameObject.CompareTag("Player") || hitInfo.gameObject.CompareTag("block") || hitInfo.gameObject.CompareTag("boundary"))
+        if(hitInfo.gameObject.CompareTag("Player") || hitInfo.gameObject.CompareTag("block") || hitInfo.gameObject.CompareTag("boundary") || hitInfo.gameObject.CompareTag("ground") )
         {
            
             GameObject bulletExplosion = (GameObject)Instantiate(bulletExplosionRef);
