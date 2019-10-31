@@ -33,7 +33,7 @@ public class PlusHpButton : MonoBehaviour
 
         if (Monetization.isSupported)
         {
-            Monetization.Initialize(gameId, true);
+            Monetization.Initialize(gameId, false);
         }
         on = true;
     }

@@ -9,8 +9,8 @@ public class IAPManager : Singleton<IAPManager>, IStoreListener
     private static IStoreController m_StoreController;          // The Unity Purchasing system.
     private static IExtensionProvider m_StoreExtensionProvider; // The store-specific Purchasing subsystems.
 
-    public string Pack1 = "Pack1";
-    public string Pack2 = "Pack2";
+    public string Pack1 = "pack1";
+    public string Pack2 = "pack2";
     public string NO_ADS = "NO_ADS";
 
     void Start()

@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using UnityEngine.Advertisements;
-using UnityEngine.UI;
 
 public class secondLife : MonoBehaviour
 {

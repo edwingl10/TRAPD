@@ -70,7 +70,7 @@ public class GameAssets : MonoBehaviour
         menderInfo.Add("name", "Mender");
         menderInfo.Add("unlocked", false);
         menderInfo.Add("upgradelvl", 0);
-        menderInfo.Add("price", 12000);
+        menderInfo.Add("price", 15000);
         menderInfo.Add("upgradePrice", 850);
         menderInfo.Add("highscore", 0);
 
@@ -78,7 +78,7 @@ public class GameAssets : MonoBehaviour
         cocoInfo.Add("name","Coco");
         cocoInfo.Add("unlocked", false);
         cocoInfo.Add("upgradelvl", 0);
-        cocoInfo.Add("price", 5000);
+        cocoInfo.Add("price", 8000);
         cocoInfo.Add("upgradePrice", 300);
         cocoInfo.Add("highscore", 0);
 
@@ -86,7 +86,7 @@ public class GameAssets : MonoBehaviour
         verglasInfo.Add("name", "Verglas");
         verglasInfo.Add("unlocked", false);
         verglasInfo.Add("upgradelvl", 0);
-        verglasInfo.Add("price", 10000);
+        verglasInfo.Add("price", 13000);
         verglasInfo.Add("upgradePrice", 750);
         verglasInfo.Add("highscore", 0);
 
@@ -94,7 +94,7 @@ public class GameAssets : MonoBehaviour
         dartInfo.Add("name", "Dart");
         dartInfo.Add("unlocked", false);
         dartInfo.Add("upgradelvl", 0);
-        dartInfo.Add("price", 7500);
+        dartInfo.Add("price", 10500);
         dartInfo.Add("upgradePrice", 400);
         dartInfo.Add("highscore", 0);
 
@@ -102,7 +102,7 @@ public class GameAssets : MonoBehaviour
         quashInfo.Add("name", "Quash");
         quashInfo.Add("unlocked", false);
         quashInfo.Add("upgradelvl", 0);
-        quashInfo.Add("price", 8000);
+        quashInfo.Add("price", 11000);
         quashInfo.Add("upgradePrice", 500);
         quashInfo.Add("highscore", 0);
 

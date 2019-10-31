@@ -94,7 +94,7 @@ public class levelManager : MonoBehaviour
     void Start()
     {
         sceneTransition.Play("SceneIntro");
-        Monetization.Initialize(gameId, true);
+        Monetization.Initialize(gameId, false);
 
         isGameOver = false;
         reviveAd = false;
@@ -130,8 +130,7 @@ public class levelManager : MonoBehaviour
             }
             else
             {
-                //ObstacleManager(levelNum);
-                ObstacleManager(5);
+                ObstacleManager(levelNum);
                 levelNum++; 
             } 
             

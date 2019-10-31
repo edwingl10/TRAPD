@@ -19,11 +19,9 @@ public class CoinsSection : MonoBehaviour
 
     public void Start()
     {
-        //Advertisement.Initialize(gameId, true);
-        //Advertisement.AddListener(this);
         if (Monetization.isSupported)
         {
-            Monetization.Initialize(gameId, true);
+            Monetization.Initialize(gameId, false);
         }
     }
     private void Update()

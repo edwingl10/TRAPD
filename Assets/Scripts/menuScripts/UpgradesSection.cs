@@ -113,7 +113,7 @@ public class UpgradesSection : MonoBehaviour
             int lvl = (int)homeMan.playerInfo[currentIndex]["upgradelvl"];
 
             homeMan.totalCoins -= upPrice;
-            homeMan.playerInfo[currentIndex]["upgradePrice"] = upPrice + 200;
+            homeMan.playerInfo[currentIndex]["upgradePrice"] = upPrice + 500;
             homeMan.playerInfo[currentIndex]["upgradelvl"] = lvl + 1;
 
             homeMan.SavePlayerData();
