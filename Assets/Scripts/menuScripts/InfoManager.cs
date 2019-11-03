@@ -57,7 +57,8 @@ public class InfoManager : MonoBehaviour
     public void RateButton()
     {
 #if UNITY_ANDROID
-        Application.OpenURL("market://details?id=" + Application.productName);
+        Application.OpenURL("market://details?id=" + Application.identifier);
+        //Debug.Log(Application.identifier);
 #endif
     }
 }

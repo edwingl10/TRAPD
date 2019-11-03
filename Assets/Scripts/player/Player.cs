@@ -160,6 +160,7 @@ public class Player : MonoBehaviour
         Time.timeScale = 0.5f;
         if(deaths == 0)
         {
+            SaveInfo();
             levelMan.StopCounter();
             GetComponent<SpriteRenderer>().enabled = false;
             GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionY|RigidbodyConstraints2D.FreezeRotation;
